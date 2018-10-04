@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ActividadPrincipal">
+
+    <item
+        android:id="@+id/action_buscar"
+        android:icon="@drawable/ic_search"
+        android:orderInCategory="1"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        android:title="Buscar Producto"
+        app:showAsAction="always|collapseActionView"
+        android:visible="true"/>
+    <!--<item-->
+        <!--android:id="@+id/action_shop"-->
+        <!--android:icon="@drawable/notification_drawable"-->
+        <!--android:title="Carrito"-->
+        <!--app:actionLayout="@layout/custom_action_item_layout"-->
+        <!--app:showAsAction="always"/>-->
+</menu>
+
