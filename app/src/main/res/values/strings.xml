@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">appFrutas</string>
+    <string name="todoAnio">Todo el año</string>
+    <string name="Enero">Enero</string>
+    <string name="Enero_short">ENE</string>
+    <string name="Febrero">Febrero</string>
+    <string name="Febrero_short">FEB</string>
+    <string name="Marzo">Marzo</string>
+    <string name="Marzo_short">MAR</string>
+    <string name="Abril">Abril</string>
+    <string name="Abril_short">ABR</string>
+    <string name="Mayo">Mayo</string>
+    <string name="Mayo_short">MAY</string>
+    <string name="Junio">Junio</string>
+    <string name="Junio_short">JUN</string>
+    <string name="Julio">Julio</string>
+    <string name="Julio_short">JUL</string>
+    <string name="Agosto">Agosto</string>
+    <string name="Agosto_short">AGO</string>
+    <string name="Septiembre">Septiembre</string>
+    <string name="Septiembre_short">SEP</string>
+    <string name="Octubre">Octubre</string>
+    <string name="Octubre_short">OCT</string>
+    <string name="Noviembre">Noviembre</string>
+    <string name="Noviembre_short">NOV</string>
+    <string name="Diciembre">Diciembre</string>
+    <string name="Diciembre_short">DIC</string>
+    <string name="nav_header_desc">Frutas APP</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+</resources>
