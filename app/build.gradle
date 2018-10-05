@@ -36,6 +36,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
 
     implementation 'com.github.satyan:sugar:1.5'
-
+    implementation 'com.github.f0ris.sweetalert:library:1.5.5'
 
 }

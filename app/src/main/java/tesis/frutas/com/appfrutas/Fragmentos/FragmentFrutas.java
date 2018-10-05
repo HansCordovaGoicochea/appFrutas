@@ -22,10 +22,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import tesis.frutas.com.appfrutas.Adapters.FrutasAdapter;
 import tesis.frutas.com.appfrutas.R;
 import tesis.frutas.com.appfrutas.clases.Fruta;
@@ -101,6 +103,16 @@ public class FragmentFrutas extends Fragment {
 
                 TextView txtclose = view_dialog.findViewById(R.id.txtclose);
 
+                nombre = view_dialog.findViewById(R.id.input_nombre);
+                kcal = view_dialog.findViewById(R.id.input_kcal);
+                grasas = view_dialog.findViewById(R.id.input_grasas);
+                proteinas = view_dialog.findViewById(R.id.input_proteinas);
+                carbohidratos = view_dialog.findViewById(R.id.input_carbo);
+                descripcion = view_dialog.findViewById(R.id.descripcion_txt);
+
+                final Spinner spinner = view_dialog.findViewById(R.id.primer_mes);
+                final Spinner spinner2 = view_dialog.findViewById(R.id.ultimo_mes);
+
                 txtclose.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -115,7 +127,52 @@ public class FragmentFrutas extends Fragment {
                 agregar_fruta.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Log.e(TAG, "Signup");
+
+                        if (!validate()) {
+                            onSignupFailed();
+                            return;
+                        }
+                        List<Fruta> frutas = Fruta.find(Fruta.class, "nombre = ?", nombre.getText().toString());
+                        if (frutas.size() > 0) {
+                            Toast.makeText(getActivity().getBaseContext(), "La fruta ya existe!", Toast.LENGTH_LONG).show();
+                            agregar_fruta.setEnabled(true);
+                        }else{
+                            agregar_fruta.setEnabled(false);
+
+                            String _nombre = nombre.getText().toString();
+                            String _kcal = kcal.getText().toString();
+                            String _grasas = grasas.getText().toString();
+                            String _proteinas = proteinas.getText().toString();
+                            String _carbohidratos = carbohidratos.getText().toString();
+                            String _descripcion = descripcion.getText().toString();
+                            String selectedPrimero = getResources().getStringArray(R.array.months_number_array)[spinner.getSelectedItemPosition()];
+                            String selectedUltimo = getResources().getStringArray(R.array.months_number_array)[spinner2.getSelectedItemPosition()];
+
+                            Fruta fruta = new Fruta();
+                            fruta.setNombre(_nombre);
+                            fruta.setKcal(_kcal);
+                            fruta.setGrasas(_grasas);
+                            fruta.setProteinas(_proteinas);
+                            fruta.setCarbohidratos(_carbohidratos);
+                            fruta.setDescripcion(_descripcion);
+                            fruta.setDateIni(Long.parseLong(selectedPrimero));
+                            fruta.setDateEnd(Long.parseLong(selectedUltimo));
+                            fruta.save();
+//                            Log.e(TAG, selectedPrimero);
+//                            Log.e(TAG, selectedUltimo);
+
+                            list_frutas.clear();
+                            List<Fruta> list_frutas_nuevo = Fruta.listAll(Fruta.class);
+                            list_frutas.addAll(list_frutas_nuevo);
+                            rcAdapter.notifyDataSetChanged();
+
+                            alertDialog.dismiss();
+
+                            new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
+                                    .setTitleText("Exito!")
+                                    .setContentText("Vehiculo Creado")
+                                    .show();
+                        }
                     }
                 });
             }
@@ -123,6 +180,66 @@ public class FragmentFrutas extends Fragment {
 
         return view;
     }
+
+    public void onSignupFailed() {
+        Toast.makeText(getActivity().getBaseContext(), "Llene los datos correctamente", Toast.LENGTH_LONG).show();
+    }
+
+    public boolean validate() {
+        boolean valid = true;
+
+        String _nombre = nombre.getText().toString();
+        String _kcal = kcal.getText().toString();
+        String _grasas = grasas.getText().toString();
+        String _proteinas = proteinas.getText().toString();
+        String _carbohidratos = carbohidratos.getText().toString();
+        String _descripcion = descripcion.getText().toString();
+
+        if (_nombre.isEmpty() || _nombre.length() < 2) {
+            nombre.setError("Al menos 2 caracteres");
+            valid = false;
+        } else {
+            nombre.setError(null);
+        }
+
+        if (_kcal.isEmpty() || _kcal.length() < 2) {
+            kcal.setError("Al menos 2 caracteres");
+            valid = false;
+        } else {
+            kcal.setError(null);
+        }
+
+        if (_grasas.isEmpty() || _grasas.length() < 2) {
+            grasas.setError("Al menos 2 caracteres");
+            valid = false;
+        } else {
+            grasas.setError(null);
+        }
+
+        if (_proteinas.isEmpty() || _proteinas.length() < 2) {
+            proteinas.setError("Al menos 2 caracteres");
+            valid = false;
+        } else {
+            proteinas.setError(null);
+        }
+
+        if (_carbohidratos.isEmpty() || _carbohidratos.length() < 2) {
+            carbohidratos.setError("Al menos 2 caracteres");
+            valid = false;
+        } else {
+            carbohidratos.setError(null);
+        }
+        if (_descripcion.isEmpty() || _descripcion.length() < 20) {
+            descripcion.setError("Al menos 20 caracteres");
+            valid = false;
+        } else {
+            descripcion.setError(null);
+        }
+
+
+        return valid;
+    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
