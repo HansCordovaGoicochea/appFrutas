@@ -1,13 +1,22 @@
 package tesis.frutas.com.appfrutas.Fragmentos;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -20,10 +29,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +64,9 @@ public class FragmentFrutas extends Fragment {
     EditText nombre, descripcion, kcal, proteinas, grasas, carbohidratos;
     Button agregar_fruta;
     Spinner inicio, fin;
-
+    FloatingActionButton fab;
+    boolean activo;
+    ImageView imagencargar;
 
     public FragmentFrutas() {
         // Required empty public constructor
@@ -87,7 +105,7 @@ public class FragmentFrutas extends Fragment {
         //attach adapter to recyclerview
         recyclerView.setAdapter(rcAdapter);
 
-        FloatingActionButton fab =  view.findViewById(R.id.fab);
+        fab =  view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,6 +142,15 @@ public class FragmentFrutas extends Fragment {
 
                 agregar_fruta = view_dialog.findViewById(R.id.agregar_fruta);
 
+                imagencargar = view_dialog.findViewById(R.id.imagen_subir);
+
+                imagencargar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cargarImagen();
+                    }
+                });
+
                 agregar_fruta.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -148,6 +175,16 @@ public class FragmentFrutas extends Fragment {
                             String selectedPrimero = getResources().getStringArray(R.array.months_number_array)[spinner.getSelectedItemPosition()];
                             String selectedUltimo = getResources().getStringArray(R.array.months_number_array)[spinner2.getSelectedItemPosition()];
 
+
+
+
+                            Bitmap imagen = ((BitmapDrawable)imagencargar.getDrawable()).getBitmap();
+
+                            String fileName = Normalizer.normalize(_nombre.toLowerCase().trim(), Normalizer.Form.NFD).replaceAll(" ", "_").replaceAll("[^\\p{ASCII}]", "");
+
+                            String ruta = guardarImagen(getActivity(), fileName, imagen);
+
+
                             Fruta fruta = new Fruta();
                             fruta.setNombre(_nombre);
                             fruta.setKcal(_kcal);
@@ -170,7 +207,7 @@ public class FragmentFrutas extends Fragment {
 
                             new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
                                     .setTitleText("Exito!")
-                                    .setContentText("Fruta Creado")
+                                    .setContentText("Fruta Creada")
                                     .show();
                         }
                     }
@@ -179,6 +216,40 @@ public class FragmentFrutas extends Fragment {
         });
 
         return view;
+    }
+
+    private String guardarImagen(FragmentActivity activity, String imagen_nombre, Bitmap imagen) {
+        ContextWrapper cw = new ContextWrapper(activity);
+        File dirImages = cw.getDir("frutas", Context.MODE_PRIVATE);
+        File myPath = new File(dirImages, imagen_nombre + ".png");
+
+        FileOutputStream fos = null;
+        try{
+            fos = new FileOutputStream(myPath);
+            imagen.compress(Bitmap.CompressFormat.PNG, 10, fos);
+            fos.flush();
+        }catch (FileNotFoundException ex){
+            ex.printStackTrace();
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+        return myPath.getAbsolutePath();
+    }
+
+    private void cargarImagen() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/");
+        startActivityForResult(intent.createChooser(intent, "Seleccione la aplicacion"), 10);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK){
+            Uri path = data.getData();
+            imagencargar.setImageURI(path);
+        }
     }
 
     public void onSignupFailed() {
@@ -240,6 +311,19 @@ public class FragmentFrutas extends Fragment {
         return valid;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences preferences = getActivity().getSharedPreferences("admin_pref", Context.MODE_PRIVATE);
+        activo = preferences.getBoolean("activo",false);
+//        if (!activo){
+//            fab.setVisibility(View.INVISIBLE);
+//        }else{
+//            hideItem();
+//            fab.setVisibility(View.VISIBLE);
+//        }
+        Log.e(TAG, activo+"");
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -271,5 +355,64 @@ public class FragmentFrutas extends Fragment {
                 return true;
             }
         });
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        int position = -1;
+        try {
+            position = ((FrutasAdapter)recyclerView.getAdapter()).getPosition();
+
+        } catch (Exception e) {
+            Log.d(TAG, e.getLocalizedMessage(), e);
+            return super.onContextItemSelected(item);
+        }
+
+        String title = item.getTitle().toString();
+
+        switch (title) {
+            case "Editar":
+                // do your stuff
+                Log.e(TAG, position+"");
+//                Log.e(TAG, position+"");
+
+                break;
+            case "Eliminar":
+                // do your stuff
+                Log.e(TAG, position+"");
+                Fruta fruta = Fruta.findById(Fruta.class, list_frutas.get(position).getId());
+                fruta.delete();
+
+                String fileName = Normalizer.normalize( list_frutas.get(position).getNombre().toLowerCase().trim(), Normalizer.Form.NFD).replaceAll(" ", "_").replaceAll("[^\\p{ASCII}]", "");
+
+                ContextWrapper cw = new ContextWrapper(getContext());
+                File dirImages = cw.getDir("frutas", Context.MODE_PRIVATE);
+                File file = new File(dirImages, fileName + ".png");
+
+                if (file.exists()){
+                    boolean eliminado = file.delete();
+                }
+
+                list_frutas.clear();
+                List<Fruta> list_frutas_nuevo = Fruta.listAll(Fruta.class);
+                list_frutas.addAll(list_frutas_nuevo);
+                rcAdapter.notifyDataSetChanged();
+
+                new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText("Exito!")
+                        .setContentText("Fruta Eliminada")
+                        .show();
+
+                break;
+        }
+
+        return super.onContextItemSelected(item);
+    }
+
+    private void hideItem()
+    {
+        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.ingresar).setVisible(false);
     }
 }

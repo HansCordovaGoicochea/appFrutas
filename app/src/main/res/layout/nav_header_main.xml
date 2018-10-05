@@ -26,7 +26,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:textSize="25sp"
         android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/md_white_1000"
         android:text="MES"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 

@@ -2,14 +2,23 @@ package tesis.frutas.com.appfrutas.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +31,15 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
 
     private final Context context;
     private List<Fruta> frutas;
+    private int position;
+    boolean activo;
 
     public FrutasAdapter(Context context, List<Fruta> frutas) {
         this.context = context;
         this.frutas = frutas;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener{
 
 
         public TextView nombre_fruta, temporada;
@@ -44,6 +55,7 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
             img_fruta = itemView.findViewById(R.id.imagen_fruta);
             img_calendar = itemView.findViewById(R.id.calendar);
 
+            itemView.setOnCreateContextMenuListener(this);
         }
 
         @Override
@@ -52,7 +64,25 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
 //            intent.putExtra("idvehiculo", vehiculos.get(getAdapterPosition()).getId().toString());
 //            context.startActivity(intent);
         }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+
+            SharedPreferences preferences = itemView.getContext().getSharedPreferences("admin_pref", Context.MODE_PRIVATE);
+            activo = preferences.getBoolean("activo",false);
+            if (activo){
+                menu.setHeaderTitle("Seleccione una opción");
+                //groupId, itemId, order, title
+                menu.add(0, v.getId(), 0, "Editar");
+                menu.add(0, v.getId(), 0, "Eliminar");
+            }
+
+        }
+
     }
+
+
+
 
     @NonNull
     @Override
@@ -66,7 +96,7 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull FrutasAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final FrutasAdapter.ViewHolder holder, int position) {
         final Fruta item = frutas.get(position);
 
         String nombre = item.getNombre();
@@ -96,6 +126,48 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
             holder.img_calendar.setImageDrawable(holder.itemView.getResources().getDrawable(R.drawable.calendar_no));
         }
 
+        String fileName = Normalizer.normalize(nombre.toLowerCase().trim(), Normalizer.Form.NFD).replaceAll(" ", "_").replaceAll("[^\\p{ASCII}]", "");
+
+        Bitmap bitmap = null;
+
+        try{
+            ContextWrapper cw = new ContextWrapper(holder.itemView.getContext());
+            File dirImages = cw.getDir("frutas", Context.MODE_PRIVATE);
+            File myPath = new File(dirImages, fileName + ".png");
+
+            Log.e("ruta", myPath+"");
+
+            FileInputStream fileInputStream =
+                    new FileInputStream(myPath);
+            bitmap = BitmapFactory.decodeStream(fileInputStream);
+        }catch (IOException io){
+            io.printStackTrace();
+        }
+
+        holder.img_fruta.setImageBitmap(bitmap);
+
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setPosition(holder.getAdapterPosition());
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull ViewHolder holder) {
+        holder.itemView.setOnLongClickListener(null);
+        super.onViewRecycled(holder);
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     @Override

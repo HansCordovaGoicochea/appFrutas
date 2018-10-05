@@ -1,7 +1,11 @@
 package tesis.frutas.com.appfrutas.utils;
 
+import android.content.Context;
+
 import java.util.Calendar;
 import java.util.Date;
+
+import tesis.frutas.com.appfrutas.R;
 
 public class Utils {
     public static final int FIRST = 1;
@@ -53,5 +57,36 @@ public class Utils {
             return text.substring(0, text.indexOf(32));
         }
         return text;
+    }
+
+    public static String monthToString(long l, Context context) {
+        switch ((int) l) {
+            case 1:
+                return context.getResources().getString(R.string.Enero);
+            case 2:
+                return context.getResources().getString(R.string.Febrero);
+            case 3:
+                return context.getResources().getString(R.string.Marzo);
+            case 4:
+                return context.getResources().getString(R.string.Abril);
+            case 5:
+                return context.getResources().getString(R.string.Mayo);
+            case 6:
+                return context.getResources().getString(R.string.Junio);
+            case 7:
+                return context.getResources().getString(R.string.Julio);
+            case 8:
+                return context.getResources().getString(R.string.Agosto);
+            case 9:
+                return context.getResources().getString(R.string.Septiembre);
+            case 10:
+                return context.getResources().getString(R.string.Octubre);
+            case 11:
+                return context.getResources().getString(R.string.Noviembre);
+            case 12:
+                return context.getResources().getString(R.string.Diciembre);
+            default:
+                return "El mes no es valido";
+        }
     }
 }

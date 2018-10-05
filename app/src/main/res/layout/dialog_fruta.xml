@@ -52,11 +52,12 @@
             android:textStyle="bold"/>
     </LinearLayout>
 
-        <!--<ImageView android:src="@drawable/logomobil"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="85dp"-->
-            <!--android:layout_marginBottom="3dp"-->
-            <!--android:layout_gravity="center_horizontal" />-->
+    <ImageView android:src="@drawable/no_disponible"
+        android:id="@+id/imagen_subir"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="3dp"
+        android:layout_gravity="center_horizontal" />
 
 
     <android.support.design.widget.TextInputLayout

@@ -1,6 +1,10 @@
 package tesis.frutas.com.appfrutas;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -14,12 +18,23 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import tesis.frutas.com.appfrutas.Fragmentos.FragmentFrutas;
+import tesis.frutas.com.appfrutas.clases.Fruta;
+import tesis.frutas.com.appfrutas.utils.Utils;
 
 public class ActividadPrincipal extends AppCompatActivity{
 
@@ -52,7 +67,9 @@ public class ActividadPrincipal extends AppCompatActivity{
 
         View headerView = navigationView.getHeaderView(0);
         TextView mes_actual = (TextView) headerView.findViewById(R.id.mes_actual);
-        mes_actual.setText("OCTUBRE");
+
+        int _mes_actual = Utils.getMonth();
+        mes_actual.setText(Utils.monthToString(_mes_actual, getApplicationContext()));
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -67,7 +84,53 @@ public class ActividadPrincipal extends AppCompatActivity{
         }, 2000); // 3000 milliseconds delay
 
 
+        // Get the shared preferences
+        SharedPreferences preferences = getSharedPreferences("admin_pref", MODE_PRIVATE);
 
+        // inicializar usuario para poder ver los controles CRUD
+        preferences.edit()
+                .putBoolean("activo", false)
+                .putString("claveadmin", "123456").apply();
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(ActividadPrincipal.this);
+        builder
+                .setIcon(R.drawable.salir)
+                .setTitle("¿Seguro de salir?")
+                .setCancelable(false)
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                        System.exit(0);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.getWindow().setSoftInputMode (WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+        ImageView imagenSalir = navigationView.findViewById(R.id.img_row_salir);
+        imagenSalir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.show();
+            }
+        });
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Get the shared preferences
+        SharedPreferences preferences = getSharedPreferences("admin_pref", MODE_PRIVATE);
+
+        // Set onboarding_complete to true
+        preferences.edit()
+                .putBoolean("activo", false).apply();
 
     }
 
@@ -99,11 +162,6 @@ public class ActividadPrincipal extends AppCompatActivity{
 
         fragmentManager = getSupportFragmentManager();
 
-        // Marcar item presionado
-        item.setChecked(true);
-
-        fragmentManager = getSupportFragmentManager();
-
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -114,6 +172,67 @@ public class ActividadPrincipal extends AppCompatActivity{
 
         if (id == R.id.frutas_nav) {
             fragment = new FragmentFrutas();
+        }else if(id == R.id.ingresar){
+
+            final EditText clave_admin = new EditText(getApplicationContext());
+
+            if (SweetAlertDialog.DARK_STYLE) {
+                clave_admin.setTextColor(Color.WHITE);
+            }
+
+
+            LinearLayout linearLayout = new LinearLayout(getApplicationContext());
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
+            linearLayout.addView(clave_admin);
+//                                            linearLayout.addView(checkBox);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(linearLayout)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    })
+                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.setTitle("Admin");
+            alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    Button b = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                    b.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                                SharedPreferences preferences = getSharedPreferences("admin_pref", MODE_PRIVATE);
+
+                                String _clave_admin = clave_admin.getText().toString();
+                                if (_clave_admin.isEmpty()) {
+                                    clave_admin.setError("Debe escribir la clave");
+                                    return;
+                                } else {
+                                    // Check if onboarding_complete is false
+                                    if(preferences.getString("claveadmin",null).equals(_clave_admin)) {
+                                        preferences.edit()
+                                                .putBoolean("activo", true).apply();
+
+                                        seleccionarItem(navigationView.getMenu().getItem(0));
+
+                                        alertDialog.dismiss();
+                                    }else{
+                                        clave_admin.setError("Error clave incorrecta");
+                                    }
+                                }
+                        }
+                    });
+                }
+            });
+            alertDialog.getWindow().setSoftInputMode (WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            alertDialog.show();
         }
 
         if (fragment != null) {
@@ -157,4 +276,6 @@ public class ActividadPrincipal extends AppCompatActivity{
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
