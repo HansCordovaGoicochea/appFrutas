@@ -170,7 +170,7 @@ public class FragmentFrutas extends Fragment {
 
                             new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
                                     .setTitleText("Exito!")
-                                    .setContentText("Vehiculo Creado")
+                                    .setContentText("Fruta Creado")
                                     .show();
                         }
                     }
