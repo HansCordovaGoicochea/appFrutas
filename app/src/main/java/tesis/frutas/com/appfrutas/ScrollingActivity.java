@@ -158,8 +158,9 @@ public class ScrollingActivity extends AppCompatActivity {
 //            return true;
 //        }
         if (id == android.R.id.home) {
-            Log.e("dfdsf", "atrasssss");
+//            Log.e("dfdsf", "atrasssss");
             finish();
+            overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             return true;
         }
         return super.onOptionsItemSelected(item);
