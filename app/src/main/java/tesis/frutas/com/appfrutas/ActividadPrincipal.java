@@ -180,6 +180,9 @@ public class ActividadPrincipal extends AppCompatActivity{
                 clave_admin.setTextColor(Color.WHITE);
             }
 
+            clave_admin.setInputType(InputType.TYPE_CLASS_TEXT |
+                    InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            clave_admin.setSelection(clave_admin.getText().length());
 
             LinearLayout linearLayout = new LinearLayout(getApplicationContext());
             linearLayout.setOrientation(LinearLayout.VERTICAL);

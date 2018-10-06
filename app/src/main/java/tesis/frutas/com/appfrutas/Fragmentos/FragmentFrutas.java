@@ -316,12 +316,12 @@ public class FragmentFrutas extends Fragment {
         super.onResume();
         SharedPreferences preferences = getActivity().getSharedPreferences("admin_pref", Context.MODE_PRIVATE);
         activo = preferences.getBoolean("activo",false);
-//        if (!activo){
-//            fab.setVisibility(View.INVISIBLE);
-//        }else{
-//            hideItem();
-//            fab.setVisibility(View.VISIBLE);
-//        }
+        if (!activo){
+            fab.setVisibility(View.INVISIBLE);
+        }else{
+            hideItem();
+            fab.setVisibility(View.VISIBLE);
+        }
         Log.e(TAG, activo+"");
     }
 

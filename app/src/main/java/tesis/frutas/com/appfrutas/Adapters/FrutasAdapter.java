@@ -1,14 +1,18 @@
 package tesis.frutas.com.appfrutas.Adapters;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +27,9 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
+import tesis.frutas.com.appfrutas.ActividadPrincipal;
 import tesis.frutas.com.appfrutas.R;
+import tesis.frutas.com.appfrutas.ScrollingActivity;
 import tesis.frutas.com.appfrutas.clases.Fruta;
 import tesis.frutas.com.appfrutas.utils.Utils;
 
@@ -60,9 +66,23 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
 
         @Override
         public void onClick(View view) {
-//            Intent intent =new Intent(itemView.getContext(), QrActivity.class);
-//            intent.putExtra("idvehiculo", vehiculos.get(getAdapterPosition()).getId().toString());
-//            context.startActivity(intent);
+            Intent intent =new Intent(itemView.getContext(), ScrollingActivity.class);
+
+
+
+            ActivityOptions activityOptions = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+
+                Pair[] pairs = new Pair[2];
+                pairs[0] = new Pair<View, String>(img_fruta, "imagenTransition");
+                pairs[1] = new Pair<View, String>(nombre_fruta, "nombreTransition");
+
+                activityOptions = ActivityOptions.makeSceneTransitionAnimation(((ActividadPrincipal)itemView.getContext()), pairs);
+            }
+
+            intent.putExtra("idfruta", frutas.get(getAdapterPosition()).getId().toString());
+            assert activityOptions != null;
+            context.startActivity(intent, activityOptions.toBundle());
         }
 
         @Override
