@@ -14,4 +14,77 @@
         <item name="android:windowActivityTransitions" tools:targetApi="lollipop">true</item>
     </style>
 
+    <style name="card_style">
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@drawable/bg_card</item>
+        <item name="android:paddingLeft">12.0dip</item>
+        <item name="android:paddingTop">12.0dip</item>
+        <item name="android:paddingRight">12.0dip</item>
+        <item name="android:paddingBottom">12.0dip</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">11.0dip</item>
+        <item name="android:layout_marginTop">5.0dip</item>
+        <item name="android:layout_marginRight">11.0dip</item>
+        <item name="android:layout_marginBottom">5.0dip</item>
+    </style>
+    <style name="ElementTextTitles">
+        <item name="android:textColor">@color/md_green_500</item>
+        <item name="android:padding">10dp</item>
+    </style>
+    <style name="MonthView">
+        <item name="android:ellipsize">none</item>
+        <item name="android:padding">1.0dip</item>
+        <item name="android:paddingBottom">10.0dip</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/cuadro_gris</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+
+    <style name="MonthTextView">
+        <item name="android:textSize">10.0sp</item>
+        <item name="android:textColor">@color/md_black_1000</item>
+        <item name="android:ellipsize">none</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+    <style name="Nutricion">
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
+        <item name="android:textColor">@color/md_black_1000</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">1.0dip</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+    <style name="Nutricion.Big" parent="@style/Nutricion">
+        <item name="android:textAppearance">?android:textAppearanceLarge</item>
+    </style>
+    <style name="Nutricion.Number" parent="@style/Nutricion">
+        <item name="android:gravity">end</item>
+        <item name="android:layout_weight">0.1</item>
+    </style>
+    <style name="ElementTextTitles.GreenTitle" parent="@style/ElementTextTitles">
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="LongText">
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
+        <item name="android:textColor">@color/md_grey_400</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">6.0dip</item>
+        <item name="android:layout_marginTop">4.0dip</item>
+        <item name="android:layout_marginRight">6.0dip</item>
+        <item name="android:layout_marginBottom">4.0dip</item>
+    </style>
 </resources>

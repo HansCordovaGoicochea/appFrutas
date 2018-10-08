@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">appFrutas</string>
+    <string name="app_name">Nutri Frutis Mongolas</string>
     <string name="todoAnio">Todo el año</string>
     <string name="Enero">Enero</string>
     <string name="Enero_short">ENE</string>
@@ -30,5 +30,30 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="temporada">Calendario temporada</string>
+    <string name="nutricion">Valor nutricional (100 gr)</string>
+    <string name="energia">Calorías</string>
+    <string name="grasas">Grasas</string>
+    <string name="gramos">gr</string>
+    <string name="proteinas">Proteínas</string>
+    <string name="carbohidratos">Carbohidratos</string>
+    <string name="descripcion">Descripción</string>
+
+    <string name="calorias_long">La caloría se emplea como unidad de medida de la energía de los alimentos ingeridos.</string>
+    <string name="grasas_long">Los lípidos cumplen funciones diversas en los organismos vivientes, entre ellas la de reserva energética (como los triglicéridos), la estructural (como los fosfolípidos de las bicapas) y la reguladora (como las hormonas esteroides).</string>
+    <string name="proteinas_long">Las proteínas son necesarias para la vida, sobre todo por su función plástica, pero también por sus funciones biorreguladoras y de defensa. Además, son imprescindibles para el crecimiento del organismo.</string>
+    <string name="carbohidratos_long">Los glúcidos, carbohidratos, hidratos de carbono o sacáridos (del griego σάκχαρ \"azúcar\") son biomoléculas cuyas principales funciones en los seres vivos son prestar energía inmediata y la función estructural.</string>
+
+
+
+    <string name="seasonTitleFirst">Inicio de temporada</string>
+    <string name="seasonTitleFirstDescription">¡Ya puedes empezar a consumirlo! El producto acaba de llegar a su punto óptimo de maduración, por lo que su temporada natural se da por empezada.</string>
+    <string name="seasonTitleLast">Fin de temporada</string>
+    <string name="seasonTitleLastDescription">El producto ya ha rebasado su punto óptimo de maduración y recolección, en breve dejará de estar de temporada.</string>
+    <string name="seasonTitleOk">En temporada</string>
+    <string name="seasonTitleOkDescription">La fruta de temporada se ha recogido en su punto óptimo de maduración. Consumirla ahora tiene múltiples beneficios: está mucho más buena, el precio suele ser menor y permite beneficiar al comercio de proximidad, lo que además reduce la contaminación derivada del cultivo y transporte. ¡A disfrutar!</string>
+    <string name="seasonTitleOut">Fuera de temporada</string>
+    <string name="seasonTitleOutDescription">Si consumes un alimento que no está en temporada, este no habrá sido cultivado respetando su ciclo natural. Su crecimiento y maduración se habrán realizado forzando el proceso de manera artificial, o bien habrá sido importado.</string>
+
 
 </resources>

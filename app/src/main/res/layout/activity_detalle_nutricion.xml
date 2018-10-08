@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" style="@style/Base.Theme.AppCompat.Light.Dialog"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView android:id="@+id/scrollViewNutrition" android:padding="10.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="vertical" android:id="@+id/scrollViewNutritionList" android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <TextView android:text="@string/energia" style="@style/ElementTextTitles.GreenTitle" />
+            <TextView android:text="@string/calorias_long" style="@style/LongText" />
+            <TextView android:text="@string/grasas" style="@style/ElementTextTitles.GreenTitle" />
+            <TextView android:text="@string/grasas_long" style="@style/LongText" />
+            <TextView android:text="@string/proteinas" style="@style/ElementTextTitles.GreenTitle" />
+            <TextView android:text="@string/proteinas_long" style="@style/LongText" />
+            <TextView android:text="@string/carbohidratos" style="@style/ElementTextTitles.GreenTitle" />
+            <TextView android:text="@string/carbohidratos_long" style="@style/LongText" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

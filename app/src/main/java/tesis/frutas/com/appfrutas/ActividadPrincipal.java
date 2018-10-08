@@ -81,7 +81,7 @@ public class ActividadPrincipal extends AppCompatActivity{
                 }
                 pd.dismiss();
             }
-        }, 2000); // 3000 milliseconds delay
+        }, 1500); // 3000 milliseconds delay
 
 
         // Get the shared preferences

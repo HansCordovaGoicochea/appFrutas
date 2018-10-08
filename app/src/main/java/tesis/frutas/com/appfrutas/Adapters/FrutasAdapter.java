@@ -67,22 +67,21 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
         @Override
         public void onClick(View view) {
             Intent intent =new Intent(itemView.getContext(), ScrollingActivity.class);
-
-
-
-            ActivityOptions activityOptions = null;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-
-                Pair[] pairs = new Pair[2];
-                pairs[0] = new Pair<View, String>(img_fruta, "imagenTransition");
-                pairs[1] = new Pair<View, String>(nombre_fruta, "nombreTransition");
-
-                activityOptions = ActivityOptions.makeSceneTransitionAnimation(((ActividadPrincipal)itemView.getContext()), pairs);
-            }
+//
+//            ActivityOptions activityOptions = null;
+//            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+//
+//                Pair[] pairs = new Pair[2];
+//                pairs[0] = new Pair<View, String>(img_fruta, "imagenTransition");
+//                pairs[1] = new Pair<View, String>(nombre_fruta, "nombreTransition");
+//
+//                activityOptions = ActivityOptions.makeSceneTransitionAnimation(((ActividadPrincipal)itemView.getContext()), pairs);
+//            }
 
             intent.putExtra("idfruta", frutas.get(getAdapterPosition()).getId().toString());
-            assert activityOptions != null;
-            context.startActivity(intent, activityOptions.toBundle());
+//            assert activityOptions != null;
+//            context.startActivity(intent, activityOptions.toBundle());
+            context.startActivity(intent);
         }
 
         @Override

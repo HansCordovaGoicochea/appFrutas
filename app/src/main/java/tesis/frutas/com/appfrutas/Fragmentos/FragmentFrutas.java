@@ -7,6 +7,7 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -17,6 +18,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -35,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -138,7 +141,6 @@ public class FragmentFrutas extends Fragment {
                     }
                 });
 
-                nombre = view_dialog.findViewById(R.id.input_nombre);
 
                 agregar_fruta = view_dialog.findViewById(R.id.agregar_fruta);
 
@@ -273,29 +275,29 @@ public class FragmentFrutas extends Fragment {
             nombre.setError(null);
         }
 
-        if (_kcal.isEmpty() || _kcal.length() < 2) {
-            kcal.setError("Al menos 2 caracteres");
+        if (_kcal.isEmpty()) {
+            kcal.setError("Al menos 1 caracteres");
             valid = false;
         } else {
             kcal.setError(null);
         }
 
-        if (_grasas.isEmpty() || _grasas.length() < 2) {
-            grasas.setError("Al menos 2 caracteres");
+        if (_grasas.isEmpty()) {
+            grasas.setError("Al menos 1 caracteres");
             valid = false;
         } else {
             grasas.setError(null);
         }
 
-        if (_proteinas.isEmpty() || _proteinas.length() < 2) {
-            proteinas.setError("Al menos 2 caracteres");
+        if (_proteinas.isEmpty()) {
+            proteinas.setError("Al menos 1 caracteres");
             valid = false;
         } else {
             proteinas.setError(null);
         }
 
-        if (_carbohidratos.isEmpty() || _carbohidratos.length() < 2) {
-            carbohidratos.setError("Al menos 2 caracteres");
+        if (_carbohidratos.isEmpty()) {
+            carbohidratos.setError("Al menos 1 caracteres");
             valid = false;
         } else {
             carbohidratos.setError(null);
@@ -369,21 +371,152 @@ public class FragmentFrutas extends Fragment {
         }
 
         String title = item.getTitle().toString();
+        final Fruta fruta = Fruta.findById(Fruta.class, list_frutas.get(position).getId());
 
+        String fileName;
         switch (title) {
             case "Editar":
+
+
+
                 // do your stuff
                 Log.e(TAG, position+"");
 //                Log.e(TAG, position+"");
+//                Toast.makeText(getContext(), "Cdsfsfdsfds", Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                alertDialogBuilder.setCancelable(false);
+                View view_dialog = getLayoutInflater().inflate(R.layout.dialog_fruta, null);
+                alertDialogBuilder.setView(view_dialog);
+                alertDialog = alertDialogBuilder.create();
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                alertDialog.show();
+
+                TextView txtclose = view_dialog.findViewById(R.id.txtclose);
+                txtclose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
+
+                nombre = view_dialog.findViewById(R.id.input_nombre);
+                kcal = view_dialog.findViewById(R.id.input_kcal);
+                grasas = view_dialog.findViewById(R.id.input_grasas);
+                proteinas = view_dialog.findViewById(R.id.input_proteinas);
+                carbohidratos = view_dialog.findViewById(R.id.input_carbo);
+                descripcion = view_dialog.findViewById(R.id.descripcion_txt);
+                final Spinner spinner = view_dialog.findViewById(R.id.primer_mes);
+                final Spinner spinner2 = view_dialog.findViewById(R.id.ultimo_mes);
+
+                nombre.setText(fruta.getNombre());
+                kcal.setText(fruta.getKcal());
+                grasas.setText(fruta.getGrasas());
+                proteinas.setText(fruta.getProteinas());
+                carbohidratos.setText(fruta.getCarbohidratos());
+                descripcion.setText(fruta.getDescripcion());
+
+                spinner.setSelection((int)fruta.getDateIni()-1);
+                spinner2.setSelection((int)fruta.getDateEnd()-1);
+
+                agregar_fruta = view_dialog.findViewById(R.id.agregar_fruta);
+
+                imagencargar = view_dialog.findViewById(R.id.imagen_subir);
+
+
+                fileName = Normalizer.normalize(fruta.getNombre().toLowerCase().trim(), Normalizer.Form.NFD).replaceAll(" ", "_").replaceAll("[^\\p{ASCII}]", "");
+
+                Bitmap bitmap = null;
+
+                try{
+                    ContextWrapper cw = new ContextWrapper(getContext());
+                    File dirImages = cw.getDir("frutas", Context.MODE_PRIVATE);
+                    File myPath = new File(dirImages, fileName + ".png");
+
+
+                    Log.e("ruta", myPath+"");
+
+                    FileInputStream fileInputStream =
+                            new FileInputStream(myPath);
+                    bitmap = BitmapFactory.decodeStream(fileInputStream);
+
+                    imagencargar.setImageBitmap(bitmap);
+
+                    if (myPath.exists()){
+                        boolean eliminado = myPath.delete();
+                    }
+
+
+                }catch (IOException io){
+                    io.printStackTrace();
+                }
+
+
+
+                imagencargar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cargarImagen();
+                    }
+                });
+
+
+                final int finalPosition = position;
+                agregar_fruta.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        String _nombre = nombre.getText().toString();
+                        String _kcal = kcal.getText().toString();
+                        String _grasas = grasas.getText().toString();
+                        String _proteinas = proteinas.getText().toString();
+                        String _carbohidratos = carbohidratos.getText().toString();
+                        String _descripcion = descripcion.getText().toString();
+                        String selectedPrimero = getResources().getStringArray(R.array.months_number_array)[spinner.getSelectedItemPosition()];
+                        String selectedUltimo = getResources().getStringArray(R.array.months_number_array)[spinner2.getSelectedItemPosition()];
+
+                        Bitmap imagen = ((BitmapDrawable)imagencargar.getDrawable()).getBitmap();
+
+                        String fileName = Normalizer.normalize(_nombre.toLowerCase().trim(), Normalizer.Form.NFD).replaceAll(" ", "_").replaceAll("[^\\p{ASCII}]", "");
+
+                        String ruta = guardarImagen(getActivity(), fileName, imagen);
+
+                        fruta.setNombre(_nombre);
+                        fruta.setKcal(_kcal);
+                        fruta.setGrasas(_grasas);
+                        fruta.setProteinas(_proteinas);
+                        fruta.setCarbohidratos(_carbohidratos);
+                        fruta.setDescripcion(_descripcion);
+                        fruta.setDateIni(Long.parseLong(selectedPrimero));
+                        fruta.setDateEnd(Long.parseLong(selectedUltimo));
+                        fruta.save();
+
+                        alertDialog.dismiss();
+
+                        list_frutas.remove(finalPosition);
+                        List<Fruta> list_frutas_nuevo = Fruta.listAll(Fruta.class);
+                        list_frutas.addAll(list_frutas_nuevo);
+                        rcAdapter.notifyDataSetChanged();
+
+                        new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
+                                .setTitleText("Exito!")
+                                .setContentText("Fruta Actualizada")
+                                .show();
+
+                    }
+                });
+
+
 
                 break;
             case "Eliminar":
                 // do your stuff
                 Log.e(TAG, position+"");
-                Fruta fruta = Fruta.findById(Fruta.class, list_frutas.get(position).getId());
+
                 fruta.delete();
 
-                String fileName = Normalizer.normalize( list_frutas.get(position).getNombre().toLowerCase().trim(), Normalizer.Form.NFD).replaceAll(" ", "_").replaceAll("[^\\p{ASCII}]", "");
+                fileName = Normalizer.normalize( list_frutas.get(position).getNombre().toLowerCase().trim(), Normalizer.Form.NFD).replaceAll(" ", "_").replaceAll("[^\\p{ASCII}]", "");
 
                 ContextWrapper cw = new ContextWrapper(getContext());
                 File dirImages = cw.getDir("frutas", Context.MODE_PRIVATE);
@@ -393,18 +526,20 @@ public class FragmentFrutas extends Fragment {
                     boolean eliminado = file.delete();
                 }
 
-                list_frutas.clear();
-                List<Fruta> list_frutas_nuevo = Fruta.listAll(Fruta.class);
-                list_frutas.addAll(list_frutas_nuevo);
-                rcAdapter.notifyDataSetChanged();
-
                 new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
                         .setTitleText("Exito!")
                         .setContentText("Fruta Eliminada")
                         .show();
 
+                list_frutas.clear();
+                List<Fruta> list_frutas_nuevo = Fruta.listAll(Fruta.class);
+                list_frutas.addAll(list_frutas_nuevo);
+                rcAdapter.notifyDataSetChanged();
+
                 break;
         }
+
+
 
         return super.onContextItemSelected(item);
     }

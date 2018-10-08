@@ -1,5 +1,6 @@
 package tesis.frutas.com.appfrutas;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -16,10 +17,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,6 +40,8 @@ public class ScrollingActivity extends AppCompatActivity {
 
     ImageView imagenHead;
 
+    ImageView month;
+    TextView descripcion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,68 +80,190 @@ public class ScrollingActivity extends AppCompatActivity {
         }
         if (primer_mes == 1 && ultimo_mes == 12) {
 
-            //get the drawable
             Drawable myFabSrc = getResources().getDrawable(R.drawable.en_temporada);
-            //copy it in a new one
             Drawable willBeWhite = myFabSrc.getConstantState().newDrawable();
-            //set the color filter, you can use also Mode.SRC_ATOP
-            willBeWhite.mutate().setColorFilter(getResources().getColor(R.color.primaryColor), PorterDuff.Mode.MULTIPLY);
-            //set it to your fab button initialized before
             fab.setImageDrawable(willBeWhite);
 
         } else if (primer_mes < mes_actual && mes_actual < ultimo_mes) {
-            //get the drawable
+
             Drawable myFabSrc = getResources().getDrawable(R.drawable.en_temporada);
-            //copy it in a new one
             Drawable willBeWhite = myFabSrc.getConstantState().newDrawable();
-            //set the color filter, you can use also Mode.SRC_ATOP
-            willBeWhite.mutate().setColorFilter(getResources().getColor(R.color.primaryColor), PorterDuff.Mode.MULTIPLY);
-            //set it to your fab button initialized before
             fab.setImageDrawable(willBeWhite);
 
         } else if (primer_mes == mes_actual) {
-            //get the drawable
             Drawable myFabSrc = getResources().getDrawable(R.drawable.en_temporada);
-            //copy it in a new one
             Drawable willBeWhite = myFabSrc.getConstantState().newDrawable();
-//            set the color filter, you can use also Mode.SRC_ATOP
-//            willBeWhite.mutate().setColorFilter(getResources().getColor(R.color.primaryColor), PorterDuff.Mode.MULTIPLY);
-            //set it to your fab button initialized before
             fab.setImageDrawable(willBeWhite);
 
         } else if (ultimo_mes == mes_actual) {
-            //get the drawable
+
             Drawable myFabSrc = getResources().getDrawable(R.drawable.alert_temporada);
-            //copy it in a new one
+
             Drawable willBeWhite = myFabSrc.getConstantState().newDrawable();
-            //set the color filter, you can use also Mode.SRC_ATOP
-//            willBeWhite.mutate().setColorFilter(getResources().getColor(R.color.md_yellow_500), PorterDuff.Mode.MULTIPLY);
-            //set it to your fab button initialized before
             fab.setImageDrawable(willBeWhite);
             fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.md_orange_600)));
         } else {
-            //get the drawable
-            Drawable myFabSrc = getResources().getDrawable(R.drawable.no_temporada);
-            //copy it in a new one
-            Drawable willBeWhite = myFabSrc.getConstantState().newDrawable();
-            //set the color filter, you can use also Mode.SRC_ATOP
-//            willBeWhite.mutate().setColorFilter(getResources().getColor(R.color.md_red_400), PorterDuff.Mode.MULTIPLY);
-            //set it to your fab button initialized before
-            fab.setImageDrawable(willBeWhite);
 
+            Drawable myFabSrc = getResources().getDrawable(R.drawable.no_temporada);
+            Drawable willBeWhite = myFabSrc.getConstantState().newDrawable();
+            fab.setImageDrawable(willBeWhite);
             fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.md_red_400)));
 
         }
 
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        month = (ImageView) findViewById(R.id.ImageViewEnero);
+        setMonthImage(1);
+        month = (ImageView) findViewById(R.id.ImageViewFebrero);
+        setMonthImage(2);
+        month = (ImageView) findViewById(R.id.ImageViewMarzo);
+        setMonthImage(3);
+        month = (ImageView) findViewById(R.id.ImageViewAbril);
+        setMonthImage(4);
+        month = (ImageView) findViewById(R.id.ImageViewMayo);
+        setMonthImage(5);
+        month = (ImageView) findViewById(R.id.ImageViewJunio);
+        setMonthImage(6);
+        month = (ImageView) findViewById(R.id.ImageViewJulio);
+        setMonthImage(7);
+        month = (ImageView) findViewById(R.id.ImageViewAgosto);
+        setMonthImage(8);
+        month = (ImageView) findViewById(R.id.ImageViewSeptiembre);
+        setMonthImage(9);
+        month = (ImageView) findViewById(R.id.ImageViewOctubre);
+        setMonthImage(10);
+        month = (ImageView) findViewById(R.id.ImageViewNoviembre);
+        setMonthImage(11);
+        month = (ImageView) findViewById(R.id.imageViewDiciembre);
+        setMonthImage(12);
+
+        int actualMonth = Utils.getMonth();
+        TextView monthText = null;
+
+        switch (actualMonth) {
+            case 1:
+                monthText = (TextView) findViewById(R.id.textView1);
+                break;
+            case 2:
+                monthText = (TextView) findViewById(R.id.textView2);
+                break;
+            case 3:
+                monthText = (TextView) findViewById(R.id.textView3);
+                break;
+            case 4:
+                monthText = (TextView) findViewById(R.id.textView4);
+                break;
+            case 5:
+                monthText = (TextView) findViewById(R.id.textView5);
+                break;
+            case 6:
+                monthText = (TextView) findViewById(R.id.textView6);
+                break;
+            case 7:
+                monthText = (TextView) findViewById(R.id.textView7);
+                break;
+            case 8:
+                monthText = (TextView) findViewById(R.id.textView8);
+                break;
+            case 9:
+                monthText = (TextView) findViewById(R.id.textView9);
+                break;
+            case 10:
+                monthText = (TextView) findViewById(R.id.textView10);
+                break;
+            case 11:
+                monthText = (TextView) findViewById(R.id.textView11);
+                break;
+            case 12:
+                monthText = (TextView) findViewById(R.id.textView12);
+                break;
+        }
+        //seteamos el mes actual y pintamos los que estan marcados para la temporada
+        monthText.setTypeface(null, 1);
+        monthText.setTextSize(2, 11.0f);
+
+        ((TextView) findViewById(R.id.kCalValor)).setText(fruta.getKcal());
+        ((TextView) findViewById(R.id.grasasValor)).setText(fruta.getGrasas());
+        ((TextView) findViewById(R.id.proteinasValor)).setText(fruta.getProteinas());
+        ((TextView) findViewById(R.id.carbohidratosValor)).setText(fruta.getCarbohidratos());
+        descripcion = (TextView) findViewById(R.id.elementDescription);
+        descripcion.setText(getParagraphedString(this.fruta.getDescripcion()));
+
+        // cuando hagamos click en el icono de alerta mostramos el modal de los textos
+        ((ImageView) findViewById(R.id.fichaInfoButton)).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ScrollingActivity.this);
+                LayoutInflater inflater = getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.activity_detalle_nutricion, null);
+                dialogBuilder.setView(dialogView);
+
+                AlertDialog alertDialog = dialogBuilder.create();
+                alertDialog.show();
             }
         });
 
+        int result = Utils.isMonthIncluded(actualMonth, (int) this.fruta.getDateIni(), (int) this.fruta.getDateEnd());
+
+        CharSequence dialogTitle = new String();
+        CharSequence dialogDescription = new String();
+        if (result == 3) {
+            dialogDescription = getResources().getText(R.string.seasonTitleOutDescription).toString();
+            dialogTitle = getResources().getText(R.string.seasonTitleOut).toString();
+        }
+        if (result == 1) {
+
+            dialogDescription = getResources().getText(R.string.seasonTitleFirstDescription).toString();
+            dialogTitle = getResources().getText(R.string.seasonTitleFirst).toString();
+        }
+        if (result == 2) {
+
+            dialogDescription = getResources().getText(R.string.seasonTitleLastDescription).toString();
+            dialogTitle = getResources().getText(R.string.seasonTitleLast).toString();
+        }
+        if (result == 0) {
+
+            dialogDescription = getResources().getText(R.string.seasonTitleOkDescription).toString();
+            dialogTitle = getResources().getText(R.string.seasonTitleOk).toString();
+        }
+
+        final AlertDialog.Builder content = new AlertDialog.Builder(this).setTitle(dialogTitle).setMessage(dialogDescription);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+
+                    content.show();
+
+            }
+        });
+
+    }
+
+    private String getParagraphedString(String textDescription) {
+        return textDescription.replace("  ", System.getProperty("line.separator") + System.getProperty("line.separator"));
+    }
+
+    private void setMonthImage(int monthEval) {
+        switch (Utils.isMonthIncluded(monthEval, (int) fruta.getDateIni(), (int) fruta.getDateEnd())) {
+            case 0:
+                month.setImageDrawable(getResources().getDrawable(R.drawable.cuadro_verde));
+                return;
+            case 1:
+                month.setImageDrawable(getResources().getDrawable(R.drawable.cuadro_verde));
+                return;
+            case 2:
+                month.setImageDrawable(getResources().getDrawable(R.drawable.cuadro_verde));
+                return;
+            case 3:
+                month.setImageDrawable(getResources().getDrawable(R.drawable.cuadro_gris_2));
+                return;
+            default:
+                month.setImageDrawable(getResources().getDrawable(R.drawable.cuadro_gris));
+                return;
+        }
     }
 
     @Override
