@@ -16,6 +16,10 @@
                 android:id="@+id/ingresar"
                 android:icon="@drawable/baseline_account_circle_black_18dp"
                 android:title="Iniciar Sesión" />
+            <item
+                android:id="@+id/cerrar"
+                android:icon="@drawable/baseline_account_circle_black_18dp"
+                android:title="Cerrar Sesión" />
         </menu>
     </item>
 
