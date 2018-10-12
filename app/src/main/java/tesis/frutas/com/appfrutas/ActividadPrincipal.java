@@ -227,6 +227,7 @@ public class ActividadPrincipal extends AppCompatActivity{
 
                                         alertDialog.dismiss();
                                     }else{
+                                        clave_admin.setText("");
                                         clave_admin.setError("Error clave incorrecta");
                                     }
                                 }
