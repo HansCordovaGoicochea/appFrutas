@@ -220,6 +220,7 @@ public class FragmentFrutas extends Fragment {
         return view;
     }
 
+
     private String guardarImagen(FragmentActivity activity, String imagen_nombre, Bitmap imagen) {
         ContextWrapper cw = new ContextWrapper(activity);
         File dirImages = cw.getDir("frutas", Context.MODE_PRIVATE);
@@ -320,11 +321,15 @@ public class FragmentFrutas extends Fragment {
         activo = preferences.getBoolean("activo",false);
         if (!activo){
             fab.setVisibility(View.INVISIBLE);
+            hideItemCerrar();
+            showItemIngresar();
         }else{
-            hideItem();
+            hideItemIngresar();
+            showItemCerrar();
             fab.setVisibility(View.VISIBLE);
         }
         Log.e(TAG, activo+"");
+        rcAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -373,7 +378,7 @@ public class FragmentFrutas extends Fragment {
         String title = item.getTitle().toString();
         final Fruta fruta = Fruta.findById(Fruta.class, list_frutas.get(position).getId());
 
-        String fileName;
+
         switch (title) {
             case "Editar":
 
@@ -424,15 +429,14 @@ public class FragmentFrutas extends Fragment {
 
                 imagencargar = view_dialog.findViewById(R.id.imagen_subir);
 
-
-                fileName = Normalizer.normalize(fruta.getNombre().toLowerCase().trim(), Normalizer.Form.NFD).replaceAll(" ", "_").replaceAll("[^\\p{ASCII}]", "");
+                String nombre_antiguo = Normalizer.normalize(fruta.getNombre().toLowerCase().trim(), Normalizer.Form.NFD).replaceAll(" ", "_").replaceAll("[^\\p{ASCII}]", "");
 
                 Bitmap bitmap = null;
 
                 try{
                     ContextWrapper cw = new ContextWrapper(getContext());
                     File dirImages = cw.getDir("frutas", Context.MODE_PRIVATE);
-                    File myPath = new File(dirImages, fileName + ".png");
+                    File myPath = new File(dirImages, nombre_antiguo + ".png");
 
 
                     Log.e("ruta", myPath+"");
@@ -443,26 +447,30 @@ public class FragmentFrutas extends Fragment {
 
                     imagencargar.setImageBitmap(bitmap);
 
-                    if (myPath.exists()){
-                        boolean eliminado = myPath.delete();
-                    }
-
-
                 }catch (IOException io){
                     io.printStackTrace();
                 }
 
-
-
                 imagencargar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+
+                        String nombre_antiguo = Normalizer.normalize(fruta.getNombre().toLowerCase().trim(), Normalizer.Form.NFD).replaceAll(" ", "_").replaceAll("[^\\p{ASCII}]", "");
+
+                            ContextWrapper cw = new ContextWrapper(getContext());
+                        File dirImages = cw.getDir("frutas", Context.MODE_PRIVATE);
+                        File myPath = new File(dirImages, nombre_antiguo + ".png");
+
+                        if (myPath.exists()){
+                            boolean eliminado = myPath.delete();
+                        }
+
                         cargarImagen();
+
                     }
                 });
 
-
-                final int finalPosition = position;
                 agregar_fruta.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -478,9 +486,9 @@ public class FragmentFrutas extends Fragment {
 
                         Bitmap imagen = ((BitmapDrawable)imagencargar.getDrawable()).getBitmap();
 
-                        String fileName = Normalizer.normalize(_nombre.toLowerCase().trim(), Normalizer.Form.NFD).replaceAll(" ", "_").replaceAll("[^\\p{ASCII}]", "");
+                        String nuevo_nombre = Normalizer.normalize(_nombre.toLowerCase().trim(), Normalizer.Form.NFD).replaceAll(" ", "_").replaceAll("[^\\p{ASCII}]", "");
 
-                        String ruta = guardarImagen(getActivity(), fileName, imagen);
+                        String ruta = guardarImagen(getActivity(), nuevo_nombre, imagen);
 
                         fruta.setNombre(_nombre);
                         fruta.setKcal(_kcal);
@@ -494,7 +502,9 @@ public class FragmentFrutas extends Fragment {
 
                         alertDialog.dismiss();
 
-                        list_frutas.remove(finalPosition);
+//                        list_frutas.remove(position);
+                        list_frutas.clear();
+                        rcAdapter.notifyDataSetChanged();
                         List<Fruta> list_frutas_nuevo = Fruta.listAll(Fruta.class);
                         list_frutas.addAll(list_frutas_nuevo);
                         rcAdapter.notifyDataSetChanged();
@@ -516,7 +526,7 @@ public class FragmentFrutas extends Fragment {
 
                 fruta.delete();
 
-                fileName = Normalizer.normalize( list_frutas.get(position).getNombre().toLowerCase().trim(), Normalizer.Form.NFD).replaceAll(" ", "_").replaceAll("[^\\p{ASCII}]", "");
+                String fileName = Normalizer.normalize( list_frutas.get(position).getNombre().toLowerCase().trim(), Normalizer.Form.NFD).replaceAll(" ", "_").replaceAll("[^\\p{ASCII}]", "");
 
                 ContextWrapper cw = new ContextWrapper(getContext());
                 File dirImages = cw.getDir("frutas", Context.MODE_PRIVATE);
@@ -544,10 +554,32 @@ public class FragmentFrutas extends Fragment {
         return super.onContextItemSelected(item);
     }
 
-    private void hideItem()
+
+    private void hideItemIngresar()
     {
         NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.ingresar).setVisible(false);
+    }
+
+    private void hideItemCerrar()
+    {
+        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.cerrar).setVisible(false);
+    }
+
+    private void showItemIngresar()
+    {
+        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.ingresar).setVisible(true);
+    }
+
+    private void showItemCerrar()
+    {
+        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.cerrar).setVisible(true);
     }
 }

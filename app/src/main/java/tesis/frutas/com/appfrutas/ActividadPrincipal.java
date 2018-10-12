@@ -237,6 +237,33 @@ public class ActividadPrincipal extends AppCompatActivity{
             });
             alertDialog.getWindow().setSoftInputMode (WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             alertDialog.show();
+        }else if(id == R.id.cerrar){
+            final AlertDialog.Builder builder = new AlertDialog.Builder(ActividadPrincipal.this);
+            builder
+                    .setIcon(R.drawable.salir)
+                    .setTitle("¿Seguro de Cerrar Sesión?")
+                    .setCancelable(false)
+                    .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            // Get the shared preferences
+                            SharedPreferences preferences = getSharedPreferences("admin_pref", MODE_PRIVATE);
+
+                            // Set onboarding_complete to true
+                            preferences.edit()
+                                    .putBoolean("activo", false).apply();
+                            seleccionarItem(navigationView.getMenu().getItem(0));
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.getWindow().setSoftInputMode (WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            alertDialog.show();
+
         }
 
         if (fragment != null) {
