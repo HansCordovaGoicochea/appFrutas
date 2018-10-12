@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -45,7 +46,7 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
         this.frutas = frutas;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener, View.OnLongClickListener{
 
 
         public TextView nombre_fruta, temporada;
@@ -54,6 +55,7 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
 
             nombre_fruta = itemView.findViewById(R.id.nombre_fruta);
             temporada = itemView.findViewById(R.id.temporada_txt);
@@ -78,6 +80,7 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
 //                activityOptions = ActivityOptions.makeSceneTransitionAnimation(((ActividadPrincipal)itemView.getContext()), pairs);
 //            }
 
+//            Toast.makeText(itemView.getContext(), ""+getAdapterPosition(), Toast.LENGTH_SHORT).show();
             intent.putExtra("idfruta", frutas.get(getAdapterPosition()).getId().toString());
 //            assert activityOptions != null;
 //            context.startActivity(intent, activityOptions.toBundle());
@@ -98,6 +101,12 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
 
         }
 
+        @Override
+        public boolean onLongClick(View view) {
+//            Toast.makeText(itemView.getContext(), ""+getAdapterPosition(), Toast.LENGTH_SHORT).show();
+            setPosition(getAdapterPosition());
+            return false;
+        }
     }
 
 
@@ -116,6 +125,8 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final FrutasAdapter.ViewHolder holder, int position) {
+//        holder.setIsRecyclable(false);
+
         final Fruta item = frutas.get(position);
 
         String nombre = item.getNombre();
@@ -166,13 +177,14 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
         holder.img_fruta.setImageBitmap(bitmap);
 
 
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                setPosition(holder.getAdapterPosition());
-                return false;
-            }
-        });
+//        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                Toast.makeText(holder.itemView.getContext(), frutas.get(holder.getAdapterPosition()).getId().toString(), Toast.LENGTH_SHORT).show();
+//                setPosition(holder.getAdapterPosition());
+//                return false;
+//            }
+//        });
     }
 
     @Override
@@ -185,7 +197,7 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
         return position;
     }
 
-    public void setPosition(int position) {
+    private void setPosition(int position) {
         this.position = position;
     }
 

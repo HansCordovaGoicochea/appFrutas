@@ -369,7 +369,7 @@ public class FragmentFrutas extends Fragment {
         int position = -1;
         try {
             position = ((FrutasAdapter)recyclerView.getAdapter()).getPosition();
-
+//            Toast.makeText(getContext(), list_frutas.get(position).getId().toString(), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Log.d(TAG, e.getLocalizedMessage(), e);
             return super.onContextItemSelected(item);
