@@ -36,6 +36,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.orm.query.Select;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -44,6 +46,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -60,7 +64,10 @@ public class FragmentFrutas extends Fragment {
 
     RecyclerView recyclerView;
     FrutasAdapter rcAdapter;
-    private List<Fruta> list_frutas = Fruta.listAll(Fruta.class);
+//    private List<Fruta> list_frutas = Fruta.listAll(Fruta.class);
+    private List<Fruta> list_frutas = Select.from(Fruta.class)
+        .orderBy("NOMBRE ASC")
+        .list();
 
     AlertDialog alertDialog;
 
@@ -105,6 +112,8 @@ public class FragmentFrutas extends Fragment {
         recyclerView.setLayoutManager(linearHorizontal);
         //initialize adapter
         rcAdapter = new FrutasAdapter(getContext(), list_frutas);
+
+
         //attach adapter to recyclerview
         recyclerView.setAdapter(rcAdapter);
 
@@ -203,6 +212,8 @@ public class FragmentFrutas extends Fragment {
                             list_frutas.clear();
                             List<Fruta> list_frutas_nuevo = Fruta.listAll(Fruta.class);
                             list_frutas.addAll(list_frutas_nuevo);
+
+                            Collections.sort(list_frutas, new CustomComparator());
                             rcAdapter.notifyDataSetChanged();
 
                             alertDialog.dismiss();
@@ -328,8 +339,16 @@ public class FragmentFrutas extends Fragment {
             showItemCerrar();
             fab.setVisibility(View.VISIBLE);
         }
-        Log.e(TAG, activo+"");
+//        Collections.sort(list_frutas);
+        Collections.sort(list_frutas, new CustomComparator());
         rcAdapter.notifyDataSetChanged();
+    }
+
+    public class CustomComparator implements Comparator<Fruta> {
+        @Override
+        public int compare(Fruta o1, Fruta o2) {
+            return o1.getNombre().compareTo(o2.getNombre());
+        }
     }
 
     @Override
@@ -505,7 +524,9 @@ public class FragmentFrutas extends Fragment {
 //                        list_frutas.remove(position);
                         list_frutas.clear();
                         rcAdapter.notifyDataSetChanged();
-                        List<Fruta> list_frutas_nuevo = Fruta.listAll(Fruta.class);
+                        List<Fruta> list_frutas_nuevo = Select.from(Fruta.class)
+                                .orderBy("NOMBRE ASC")
+                                .list();
                         list_frutas.addAll(list_frutas_nuevo);
                         rcAdapter.notifyDataSetChanged();
 
