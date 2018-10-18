@@ -563,7 +563,9 @@ public class FragmentFrutas extends Fragment {
                         .show();
 
                 list_frutas.clear();
-                List<Fruta> list_frutas_nuevo = Fruta.listAll(Fruta.class);
+                List<Fruta> list_frutas_nuevo = Select.from(Fruta.class)
+                        .orderBy("NOMBRE ASC")
+                        .list();
                 list_frutas.addAll(list_frutas_nuevo);
                 rcAdapter.notifyDataSetChanged();
 
