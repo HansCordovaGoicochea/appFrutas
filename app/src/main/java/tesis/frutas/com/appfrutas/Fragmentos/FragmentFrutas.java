@@ -362,6 +362,7 @@ public class FragmentFrutas extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                rcAdapter.getFilter().filter(query);
                 return false;
             }
 
@@ -369,19 +370,26 @@ public class FragmentFrutas extends Fragment {
             public boolean onQueryTextChange(String s) {
                 s = s.toLowerCase();
 
-                List<Fruta> nuevaLista = new ArrayList<>();
-                for (Fruta fruta : list_frutas) {
-                    String nombre_fruta = fruta.getNombre().toLowerCase();
-                    if (nombre_fruta.contains(s)){
-                        nuevaLista.add(fruta);
-                    }
-                }
-                rcAdapter.setFilter(nuevaLista);
+                rcAdapter.getFilter().filter(s);
 
-                return true;
+//                List<Fruta> nuevaLista = new ArrayList<>();
+//                for (Fruta fruta : list_frutas) {
+//                    String nombre_fruta = fruta.getNombre().toLowerCase();
+//                    if (nombre_fruta.contains(s)){
+//                        nuevaLista.add(fruta);
+//                    }
+//                }
+//                rcAdapter.setFilter(nuevaLista);
+
+                return false;
             }
+
+
+
         });
     }
+
+
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
