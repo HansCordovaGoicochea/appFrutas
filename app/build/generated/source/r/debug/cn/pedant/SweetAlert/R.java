@@ -110,13 +110,13 @@ public final class R {
         public static final int neutral_button = 0x7f0900ab;
         public static final int progressWheel = 0x7f0900bd;
         public static final int progress_dialog = 0x7f0900bf;
-        public static final int success_frame = 0x7f0900f4;
-        public static final int success_tick = 0x7f0900f5;
-        public static final int title_text = 0x7f090112;
-        public static final int warning_frame = 0x7f090126;
-        public static final int x = 0x7f09012a;
-        public static final int y = 0x7f09012b;
-        public static final int z = 0x7f09012c;
+        public static final int success_frame = 0x7f0900f5;
+        public static final int success_tick = 0x7f0900f6;
+        public static final int title_text = 0x7f090113;
+        public static final int warning_frame = 0x7f090127;
+        public static final int x = 0x7f09012b;
+        public static final int y = 0x7f09012c;
+        public static final int z = 0x7f09012d;
     }
     public static final class layout {
         public static final int alert_dialog = 0x7f0c001e;
@@ -130,9 +130,9 @@ public final class R {
         public static final int dialog_ok = 0x7f0f0041;
     }
     public static final class style {
-        public static final int alert_dialog_dark = 0x7f1001e0;
-        public static final int alert_dialog_light = 0x7f1001e1;
-        public static final int dialog_blue_button = 0x7f1001e3;
+        public static final int alert_dialog_dark = 0x7f1001e2;
+        public static final int alert_dialog_light = 0x7f1001e3;
+        public static final int dialog_blue_button = 0x7f1001e5;
     }
     public static final class styleable {
         public static final int[] ProgressWheel = { 0x7f04017a, 0x7f04017b, 0x7f04017c, 0x7f04017d, 0x7f04017e, 0x7f04017f, 0x7f040180, 0x7f040181, 0x7f040182, 0x7f040183 };

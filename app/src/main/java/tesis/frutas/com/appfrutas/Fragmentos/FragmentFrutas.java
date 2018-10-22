@@ -29,6 +29,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,6 +38,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.orm.query.Condition;
 import com.orm.query.Select;
 
 import java.io.File;
@@ -54,9 +57,10 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import tesis.frutas.com.appfrutas.Adapters.FrutasAdapter;
 import tesis.frutas.com.appfrutas.R;
 import tesis.frutas.com.appfrutas.clases.Fruta;
+import tesis.frutas.com.appfrutas.utils.Utils;
 
 
-public class FragmentFrutas extends Fragment {
+public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelectedListener{
 
     public static final String ARG_SECTION_TITLE = "Mis Vehículos";
     private static final String TAG = FragmentFrutas.class.getSimpleName();
@@ -65,6 +69,9 @@ public class FragmentFrutas extends Fragment {
     RecyclerView recyclerView;
     FrutasAdapter rcAdapter;
 //    private List<Fruta> list_frutas = Fruta.listAll(Fruta.class);
+
+    private String[] mLocations;
+
     private List<Fruta> list_frutas = Select.from(Fruta.class)
         .orderBy("NOMBRE ASC")
         .list();
@@ -77,6 +84,7 @@ public class FragmentFrutas extends Fragment {
     FloatingActionButton fab;
     boolean activo;
     ImageView imagencargar;
+    Spinner spinner;
 
     public FragmentFrutas() {
         // Required empty public constructor
@@ -228,6 +236,10 @@ public class FragmentFrutas extends Fragment {
             }
         });
 
+
+        spinner = (Spinner) getActivity().findViewById(R.id.spinner_nav);
+        spinner.setOnItemSelectedListener(this);
+
         return view;
     }
 
@@ -344,6 +356,54 @@ public class FragmentFrutas extends Fragment {
         rcAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            Toast.makeText(getContext(), ""+spinner.getSelectedItemPosition(), Toast.LENGTH_SHORT).show();
+        List<Fruta> valores = new ArrayList<>();
+        int mes_actual = Utils.getMonth();
+
+        if (position == 0) {
+            valores = Select.from(Fruta.class)
+                    .orderBy("NOMBRE ASC")
+                    .list();
+        } else if (position == 1) {
+            List<Fruta> valores_beta = Select.from(Fruta.class)
+                    .orderBy("NOMBRE ASC")
+                    .list();
+
+            for (Fruta item: valores_beta){
+                int primer_mes = (int) item.getDateIni();
+                int ultimo_mes = (int) item.getDateEnd();
+
+                if (primer_mes == 1 && ultimo_mes == 12 || primer_mes < mes_actual && mes_actual < ultimo_mes || primer_mes == mes_actual || ultimo_mes == mes_actual) {
+
+                    valores.add(item);
+                }
+            }
+
+        } else if (position == 2) {
+            int mes_masuno = mes_actual +1;
+            int mes_masmod = mes_actual %12;
+
+
+            valores = Select.from(Fruta.class)
+                    .where(Condition.prop("DATE_INI").eq(mes_masuno))
+
+                    .orderBy("NOMBRE ASC")
+                    .list();
+        }
+
+        rcAdapter = new FrutasAdapter(getActivity(), valores);
+        //attach adapter to recyclerview
+        recyclerView.setAdapter(rcAdapter);
+        rcAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
     public class CustomComparator implements Comparator<Fruta> {
         @Override
         public int compare(Fruta o1, Fruta o2) {
@@ -354,6 +414,17 @@ public class FragmentFrutas extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+
+        //poblar spinner
+//        MenuItem item = menu.findItem(R.id.spinner);
+//        Spinner spinner = (Spinner) item.getActionView();
+
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.spinner_selection_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(adapter);
 
         //buscador de productos en el recycler
         final MenuItem buscar = menu.findItem(R.id.action_buscar);
@@ -613,4 +684,12 @@ public class FragmentFrutas extends Fragment {
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.cerrar).setVisible(true);
     }
+
+//    private void setActionBarSherlock() {
+//        mLocations = getResources().getStringArray(R.array.spinner_selection_array);
+//        Spinner s = (Spinner) getActivity().findViewById(R.id.spinner_toolbar);
+//        s.setAdapter(new AdapterSpinner(((ActionBarActivity) getActivity()).getSupportActionBar().getThemedContext(), R.layout.support_simple_spinner_dropdown_item, this.mLocations));
+////        s.setOnItemSelectedListener(new C03172());
+////        s.setSelection(getPreferenceTemporada());
+//    }
 }
