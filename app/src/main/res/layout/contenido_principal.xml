@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/abc_action_bar_default_padding_start_material"
-                style="@style/Widget.MyTheme.HeaderBar.Spinner"/>
+                style="@style/spinnerstyle"/>
 
         </android.support.v7.widget.Toolbar>
 

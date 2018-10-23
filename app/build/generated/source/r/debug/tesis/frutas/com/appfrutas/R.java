@@ -6268,12 +6268,12 @@ public final class R {
     public static final int Widget_MaterialComponents_TextInputLayout_FilledBox_Dense=0x7f1001dd;
     public static final int Widget_MaterialComponents_TextInputLayout_OutlineBox=0x7f1001de;
     public static final int Widget_MaterialComponents_TextInputLayout_OutlineBox_Dense=0x7f1001df;
-    public static final int Widget_MyTheme_HeaderBar_Spinner=0x7f1001e0;
-    public static final int Widget_Support_CoordinatorLayout=0x7f1001e1;
-    public static final int alert_dialog_dark=0x7f1001e2;
-    public static final int alert_dialog_light=0x7f1001e3;
-    public static final int card_style=0x7f1001e4;
-    public static final int dialog_blue_button=0x7f1001e5;
+    public static final int Widget_Support_CoordinatorLayout=0x7f1001e0;
+    public static final int alert_dialog_dark=0x7f1001e1;
+    public static final int alert_dialog_light=0x7f1001e2;
+    public static final int card_style=0x7f1001e3;
+    public static final int dialog_blue_button=0x7f1001e4;
+    public static final int spinnerstyle=0x7f1001e5;
   }
   public static final class styleable {
     /**

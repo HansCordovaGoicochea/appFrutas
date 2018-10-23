@@ -2755,7 +2755,7 @@
         <item name="android:layout_marginTop">4.0dip</item>
         <item name="android:layout_marginRight">6.0dip</item>
         <item name="android:layout_marginBottom">4.0dip</item>
-    </style><style name="Widget.MyTheme.HeaderBar.Spinner" parent="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
+    </style><style name="spinnerstyle" parent="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
         <item name="android:theme">@style/ActionBarThemeOverlay</item>
     </style><style name="ActionBarThemeOverlay">
         <item name="android:textColorPrimary">#ffffffff</item>

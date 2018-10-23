@@ -130,9 +130,9 @@ public final class R {
         public static final int dialog_ok = 0x7f0f0041;
     }
     public static final class style {
-        public static final int alert_dialog_dark = 0x7f1001e2;
-        public static final int alert_dialog_light = 0x7f1001e3;
-        public static final int dialog_blue_button = 0x7f1001e5;
+        public static final int alert_dialog_dark = 0x7f1001e1;
+        public static final int alert_dialog_light = 0x7f1001e2;
+        public static final int dialog_blue_button = 0x7f1001e4;
     }
     public static final class styleable {
         public static final int[] ProgressWheel = { 0x7f04017a, 0x7f04017b, 0x7f04017c, 0x7f04017d, 0x7f04017e, 0x7f04017f, 0x7f040180, 0x7f040181, 0x7f040182, 0x7f040183 };

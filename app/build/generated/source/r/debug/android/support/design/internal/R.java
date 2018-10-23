@@ -1260,7 +1260,7 @@ public final class R {
         public static final int Widget_Design_ScrimInsetsFrameLayout = 0x7f1001c6;
         public static final int Widget_MaterialComponents_BottomNavigationView = 0x7f1001cc;
         public static final int Widget_MaterialComponents_BottomNavigationView_Colored = 0x7f1001cd;
-        public static final int Widget_Support_CoordinatorLayout = 0x7f1001e1;
+        public static final int Widget_Support_CoordinatorLayout = 0x7f1001e0;
     }
     public static final class styleable {
         public static final int[] ActionBar = { 0x7f040033, 0x7f040034, 0x7f040035, 0x7f0400b2, 0x7f0400b3, 0x7f0400b4, 0x7f0400b5, 0x7f0400b6, 0x7f0400b7, 0x7f0400c5, 0x7f0400ca, 0x7f0400cb, 0x7f0400d6, 0x7f040101, 0x7f040106, 0x7f04010a, 0x7f04010b, 0x7f04010d, 0x7f040115, 0x7f04011f, 0x7f040178, 0x7f04018f, 0x7f0401a2, 0x7f0401a6, 0x7f0401a7, 0x7f0401d2, 0x7f0401d5, 0x7f04021c, 0x7f040226 };

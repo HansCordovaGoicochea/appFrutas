@@ -107,7 +107,7 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
 
         @Override
         public boolean onLongClick(View view) {
-//            Toast.makeText(itemView.getContext(), frutas.get(getAdapterPosition()).getNombre()+" -- "+getAdapterPosition(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(itemView.getContext(), frutas.get(getAdapterPosition()).getNombre()+" -- "+getAdapterPosition(), Toast.LENGTH_SHORT).show();
             setPosition(getAdapterPosition());
             return false;
         }

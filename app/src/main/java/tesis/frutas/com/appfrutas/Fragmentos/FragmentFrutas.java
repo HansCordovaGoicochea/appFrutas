@@ -60,6 +60,8 @@ import tesis.frutas.com.appfrutas.clases.Fruta;
 import tesis.frutas.com.appfrutas.utils.Utils;
 
 
+
+
 public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelectedListener{
 
     public static final String ARG_SECTION_TITLE = "Mis Vehículos";
@@ -72,9 +74,13 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
 
     private String[] mLocations;
 
+    private String estado_lista = "";
+
     private List<Fruta> list_frutas = Select.from(Fruta.class)
         .orderBy("NOMBRE ASC")
         .list();
+    private List<Fruta> nuevaLista;
+    private List<Fruta> valores;
 
     AlertDialog alertDialog;
 
@@ -215,14 +221,18 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
                             fruta.setDateEnd(Long.parseLong(selectedUltimo));
                             fruta.save();
 //                            Log.e(TAG, selectedPrimero);
-//                            Log.e(TAG, selectedUltimo);
+                            Log.e(TAG, selectedUltimo);
 
                             list_frutas.clear();
-                            List<Fruta> list_frutas_nuevo = Fruta.listAll(Fruta.class);
+                            List<Fruta> list_frutas_nuevo = Select.from(Fruta.class)
+                                    .orderBy("NOMBRE ASC")
+                                    .list();
                             list_frutas.addAll(list_frutas_nuevo);
 
                             Collections.sort(list_frutas, new CustomComparator());
-                            rcAdapter.notifyDataSetChanged();
+                            rcAdapter = new FrutasAdapter(getContext(), list_frutas);
+                            recyclerView.setAdapter(rcAdapter);
+//                            rcAdapter.notifyDataSetChanged();
 
                             alertDialog.dismiss();
 
@@ -358,8 +368,11 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            Toast.makeText(getContext(), ""+spinner.getSelectedItemPosition(), Toast.LENGTH_SHORT).show();
-        List<Fruta> valores = new ArrayList<>();
+//            Toast.makeText(getContext(), ""+spinner.getSelectedItemPosition(), Toast.LENGTH_SHORT).show();
+        valores = new ArrayList<>();
+        List<Fruta> valores_beta = Select.from(Fruta.class)
+                .orderBy("NOMBRE ASC")
+                .list();
         int mes_actual = Utils.getMonth();
 
         if (position == 0) {
@@ -367,36 +380,40 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
                     .orderBy("NOMBRE ASC")
                     .list();
         } else if (position == 1) {
-            List<Fruta> valores_beta = Select.from(Fruta.class)
-                    .orderBy("NOMBRE ASC")
-                    .list();
 
             for (Fruta item: valores_beta){
                 int primer_mes = (int) item.getDateIni();
                 int ultimo_mes = (int) item.getDateEnd();
 
-                if (primer_mes == 1 && ultimo_mes == 12 || primer_mes < mes_actual && mes_actual < ultimo_mes || primer_mes == mes_actual || ultimo_mes == mes_actual) {
+                if (ultimo_mes < primer_mes) {
+                    ultimo_mes += 12;
+                    if (mes_actual < primer_mes) {
+                        mes_actual += 12;
+                    }
+                }
 
+                if (primer_mes == 1 && ultimo_mes == 12 || ((primer_mes < mes_actual && mes_actual < ultimo_mes) || primer_mes == mes_actual || ultimo_mes == mes_actual)) {
                     valores.add(item);
                 }
             }
 
         } else if (position == 2) {
-            int mes_masuno = mes_actual +1;
-            int mes_masmod = mes_actual %12;
+            mes_actual = (Utils.getMonth() + 1) % 12;
 
+            for (Fruta item: valores_beta){
+                int primer_mes = (int) item.getDateIni();
+                int ultimo_mes = (int) item.getDateEnd();
 
-            valores = Select.from(Fruta.class)
-                    .where(Condition.prop("DATE_INI").eq(mes_masuno))
-
-                    .orderBy("NOMBRE ASC")
-                    .list();
+                if (!(primer_mes == 1 && ultimo_mes == 12) && (primer_mes == mes_actual || primer_mes == (mes_actual + 1) % 12)) {
+                    valores.add(item);
+                }
+            }
         }
-
+        estado_lista = "Filtro";
+//        list_frutas.clear();
         rcAdapter = new FrutasAdapter(getActivity(), valores);
         //attach adapter to recyclerview
         recyclerView.setAdapter(rcAdapter);
-        rcAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -423,7 +440,6 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.spinner_selection_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         spinner.setAdapter(adapter);
 
         //buscador de productos en el recycler
@@ -433,7 +449,7 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                rcAdapter.getFilter().filter(query);
+//                rcAdapter.getFilter().filter(query);
                 return false;
             }
 
@@ -441,16 +457,21 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
             public boolean onQueryTextChange(String s) {
                 s = s.toLowerCase();
 
-                rcAdapter.getFilter().filter(s);
+//                rcAdapter.getFilter().filter(s);
+                if (s.length() > 0){
+                    estado_lista = "Buscando";
+                }
 
-//                List<Fruta> nuevaLista = new ArrayList<>();
-//                for (Fruta fruta : list_frutas) {
-//                    String nombre_fruta = fruta.getNombre().toLowerCase();
-//                    if (nombre_fruta.contains(s)){
-//                        nuevaLista.add(fruta);
-//                    }
-//                }
-//                rcAdapter.setFilter(nuevaLista);
+                nuevaLista = new ArrayList<>();
+                for (Fruta fruta : list_frutas) {
+                    String nombre_fruta = fruta.getNombre().toLowerCase();
+                    if (nombre_fruta.contains(s)){
+                        nuevaLista.add(fruta);
+                    }
+                }
+
+                rcAdapter.setFilter(nuevaLista);
+
 
                 return false;
             }
@@ -474,7 +495,19 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
         }
 
         String title = item.getTitle().toString();
-        final Fruta fruta = Fruta.findById(Fruta.class, list_frutas.get(position).getId());
+        final Fruta fruta;
+
+        switch (estado_lista){
+            case "Buscando":
+                fruta = Fruta.findById(Fruta.class, nuevaLista.get(position).getId());
+                break;
+            case "Filtro":
+                fruta = Fruta.findById(Fruta.class, valores.get(position).getId());
+                break;
+            default:
+                fruta = Fruta.findById(Fruta.class, list_frutas.get(position).getId());
+                break;
+        }
 
 
         switch (title) {
@@ -607,7 +640,8 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
                                 .orderBy("NOMBRE ASC")
                                 .list();
                         list_frutas.addAll(list_frutas_nuevo);
-                        rcAdapter.notifyDataSetChanged();
+                        rcAdapter = new FrutasAdapter(getContext(), list_frutas);
+                        recyclerView.setAdapter(rcAdapter);
 
                         new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
                                 .setTitleText("Exito!")
@@ -646,7 +680,8 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
                         .orderBy("NOMBRE ASC")
                         .list();
                 list_frutas.addAll(list_frutas_nuevo);
-                rcAdapter.notifyDataSetChanged();
+                rcAdapter = new FrutasAdapter(getContext(), list_frutas);
+                recyclerView.setAdapter(rcAdapter);
 
                 break;
         }

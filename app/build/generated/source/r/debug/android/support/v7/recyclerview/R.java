@@ -147,7 +147,7 @@ public final class R {
         public static final int TextAppearance_Compat_Notification_Title = 0x7f100119;
         public static final int Widget_Compat_NotificationActionContainer = 0x7f1001be;
         public static final int Widget_Compat_NotificationActionText = 0x7f1001bf;
-        public static final int Widget_Support_CoordinatorLayout = 0x7f1001e1;
+        public static final int Widget_Support_CoordinatorLayout = 0x7f1001e0;
     }
     public static final class styleable {
         public static final int[] CoordinatorLayout = { 0x7f040124, 0x7f0401cc };
