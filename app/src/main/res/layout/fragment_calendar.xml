@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="@color/md_grey_300" android:paddingTop="@dimen/activity_vertical_margin" android:paddingBottom="@dimen/activity_vertical_margin" android:layout_width="fill_parent" android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TableLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_alignParentStart="true" android:layout_alignParentTop="true">
+
+        <TableRow style="@style/card_style.calendar">
+
+            <TextView
+                android:id="@+id/calFragmentMonth1"
+                style="@style/MonthTextActivity"
+                android:text="@string/Enero" />
+
+            <View style="@style/vertical_line" />
+
+            <TextView
+                android:id="@+id/calFragmentMonth2"
+                style="@style/MonthTextActivity"
+                android:text="@string/Febrero" />
+
+            <View style="@style/vertical_line" />
+
+            <TextView
+                android:id="@+id/calFragmentMonth3"
+                style="@style/MonthTextActivity"
+                android:text="@string/Marzo" />
+        </TableRow>
+
+        <TableRow style="@style/card_style.calendar">
+
+            <TextView
+                android:id="@+id/calFragmentMonth4"
+                style="@style/MonthTextActivity"
+                android:text="@string/Abril" />
+
+            <View style="@style/vertical_line" />
+
+            <TextView
+                android:id="@+id/calFragmentMonth5"
+                style="@style/MonthTextActivity"
+                android:text="@string/Mayo" />
+
+            <View style="@style/vertical_line" />
+
+            <TextView
+                android:id="@+id/calFragmentMonth6"
+                style="@style/MonthTextActivity"
+                android:text="@string/Junio" />
+        </TableRow>
+
+        <TableRow style="@style/card_style.calendar">
+
+            <TextView
+                android:id="@+id/calFragmentMonth7"
+                style="@style/MonthTextActivity"
+                android:text="@string/Julio" />
+
+            <View style="@style/vertical_line" />
+
+            <TextView
+                android:id="@+id/calFragmentMonth8"
+                style="@style/MonthTextActivity"
+                android:text="@string/Agosto" />
+
+            <View style="@style/vertical_line" />
+
+            <TextView
+                android:id="@+id/calFragmentMonth9"
+                style="@style/MonthTextActivity"
+                android:text="@string/Septiembre" />
+        </TableRow>
+
+        <TableRow style="@style/card_style.calendar">
+
+            <TextView
+                android:id="@+id/calFragmentMonth10"
+                style="@style/MonthTextActivity"
+                android:text="@string/Octubre" />
+
+            <View style="@style/vertical_line" />
+
+            <TextView
+                android:id="@+id/calFragmentMonth11"
+                style="@style/MonthTextActivity"
+                android:text="@string/Noviembre" />
+
+            <View style="@style/vertical_line" />
+
+            <TextView
+                android:id="@+id/calFragmentMonth12"
+                style="@style/MonthTextActivity"
+                android:text="@string/Diciembre" />
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>

@@ -8,6 +8,10 @@
             android:id="@+id/frutas_nav"
             android:icon="@drawable/menufruta"
             android:title="Frutas" />
+        <item
+            android:id="@+id/calendario_nav"
+            android:icon="@drawable/calendar"
+            android:title="Calendario" />
     </group>
 
     <item android:title="Administración">

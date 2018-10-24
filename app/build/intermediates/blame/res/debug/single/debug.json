@@ -1404,6 +1404,10 @@
         "source": "C:\\Users\\Hans\\.gradle\\caches\\transforms-1\\files-1.1\\design-textfield-28.0.0-alpha1.aar\\0dcfa7a9e0e25b803a04191155530b94\\res\\drawable-xxxhdpi-v4\\design_ic_visibility_off.png"
     },
     {
+        "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_calendar.xml.flat",
+        "source": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\src\\main\\res\\layout\\fragment_calendar.xml"
+    },
+    {
         "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_foreground.png.flat",
         "source": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_foreground.png"
     },
@@ -1482,6 +1486,10 @@
     {
         "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_ic_star_black_16dp.png.flat",
         "source": "C:\\Users\\Hans\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha1.aar\\3df08762b926714c7b307538502934de\\res\\drawable-mdpi-v4\\abc_ic_star_black_16dp.png"
+    },
+    {
+        "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_calendar.png.flat",
+        "source": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\src\\main\\res\\drawable-xhdpi\\calendar.png"
     },
     {
         "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\interpolator_mtrl_fast_out_slow_in.xml.flat",

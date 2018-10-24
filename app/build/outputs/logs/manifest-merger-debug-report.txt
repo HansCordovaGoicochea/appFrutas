@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:2:1-45:12
-INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:2:1-45:12
-INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:2:1-45:12
-INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:2:1-45:12
+ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:2:1-46:12
+INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:2:1-46:12
+INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:2:1-46:12
+INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:2:1-46:12
 MERGED from [com.android.support:design:28.0.0-alpha1] C:\Users\Hans\.gradle\caches\transforms-1\files-1.1\design-28.0.0-alpha1.aar\678c8368439d93d70a66a65d771e067c\AndroidManifest.xml:17:1-24:12
 MERGED from [com.android.support:design-bottomappbar:28.0.0-alpha1] C:\Users\Hans\.gradle\caches\transforms-1\files-1.1\design-bottomappbar-28.0.0-alpha1.aar\75e89622218e806f53334d217485037d\AndroidManifest.xml:17:1-24:12
 MERGED from [com.android.support:design-theme:28.0.0-alpha1] C:\Users\Hans\.gradle\caches\transforms-1\files-1.1\design-theme-28.0.0-alpha1.aar\e6b828923669d7bc8a7989ef0d39487a\AndroidManifest.xml:17:1-24:12
@@ -70,20 +70,20 @@ MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Hans\.gradle\caches\
 MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Hans\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\1f62c949fe9a602405b5ebeaa6777224\AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Hans\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\cd50600d84b835c5bd213a42a09584b7\AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Hans\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\e854f76c72da4791f488df559ee196e4\AndroidManifest.xml:17:1-22:12
-INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:2:1-45:12
-INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:2:1-45:12
-INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:2:1-45:12
+INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:2:1-46:12
+INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:2:1-46:12
+INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:2:1-46:12
 	package
 		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:3:5-41
 		INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:2:1-45:12
+		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:2:1-46:12
 		INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:2:1-45:12
+		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:2:1-46:12
 		INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:2:11-69
@@ -96,7 +96,7 @@ ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidMan
 	android:name
 		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:6:22-78
 application
-ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:8:5-41:19
+ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:8:5-44:19
 MERGED from [com.android.support:design:28.0.0-alpha1] C:\Users\Hans\.gradle\caches\transforms-1\files-1.1\design-28.0.0-alpha1.aar\678c8368439d93d70a66a65d771e067c\AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:design:28.0.0-alpha1] C:\Users\Hans\.gradle\caches\transforms-1\files-1.1\design-28.0.0-alpha1.aar\678c8368439d93d70a66a65d771e067c\AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:design-bottomappbar:28.0.0-alpha1] C:\Users\Hans\.gradle\caches\transforms-1\files-1.1\design-bottomappbar-28.0.0-alpha1.aar\75e89622218e806f53334d217485037d\AndroidManifest.xml:22:5-20
@@ -184,53 +184,57 @@ MERGED from [com.pnikosis:materialish-progress:1.7] C:\Users\Hans\.gradle\caches
 	android:name
 		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:9:9-40
 activity#tesis.frutas.com.appfrutas.ActividadPrincipal
-ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:16:9-23:20
+ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:16:9-24:20
 	android:configChanges
-		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:17:13-74
+		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:18:13-74
 	android:name
-		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:16:19-53
+		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:17:13-47
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:18:13-22:29
+ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:19:13-23:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:19:17-69
+ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:20:17-69
 	android:name
-		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:19:25-66
+		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:20:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:21:17-77
+ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:22:17-77
 	android:name
-		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:21:27-74
+		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:22:27-74
 activity#tesis.frutas.com.appfrutas.ScrollingActivity
-ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:24:9-27:76
+ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:25:9-28:48
 	android:label
-		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:26:13-45
+		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:28:13-45
 	android:configChanges
 		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:27:13-74
 	android:name
-		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:25:13-46
+		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:26:13-46
 meta-data#DATABASE
-ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:29:9-31:44
+ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:30:9-32:44
 	android:value
-		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:31:13-41
+		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:32:13-41
 	android:name
-		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:30:13-36
+		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:31:13-36
 meta-data#VERSION
-ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:32:9-34:33
+ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:33:9-35:33
 	android:value
-		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:34:13-30
+		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:35:13-30
 	android:name
-		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:33:13-35
+		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:34:13-35
 meta-data#QUERY_LOG
-ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:35:9-37:36
+ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:36:9-38:36
 	android:value
-		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:37:13-33
+		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:38:13-33
 	android:name
-		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:36:13-37
+		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:37:13-37
 meta-data#DOMAIN_PACKAGE_NAME
-ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:38:9-40:58
+ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:39:9-41:58
 	android:value
-		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:40:13-55
+		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:41:13-55
 	android:name
-		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:39:13-47
+		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:40:13-47
+activity#tesis.frutas.com.appfrutas.CalendarioActivity
+ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:43:9-65
+	android:name
+		ADDED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml:43:19-53
 uses-sdk
 INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\Hans\AndroidStudioProjects\appFrutas\app\src\main\AndroidManifest.xml

@@ -76,9 +76,9 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
 
     private String estado_lista = "";
 
-    private List<Fruta> list_frutas = Select.from(Fruta.class)
-        .orderBy("NOMBRE ASC")
-        .list();
+    private static List<Fruta> list_frutas = Select.from(Fruta.class)
+            .orderBy("NOMBRE ASC")
+            .list();
     private List<Fruta> nuevaLista;
     private List<Fruta> valores;
 
@@ -94,6 +94,7 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
 
     public FragmentFrutas() {
         // Required empty public constructor
+
     }
 
 
@@ -101,6 +102,7 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
         FragmentFrutas fragment = new FragmentFrutas();
         Bundle args = new Bundle();
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -108,7 +110,10 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -249,6 +254,40 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
 
         spinner = (Spinner) getActivity().findViewById(R.id.spinner_nav);
         spinner.setOnItemSelectedListener(this);
+        if (getArguments() != null) {
+//            mParam2 = getArguments().getString(ARG_PARAM2);
+            int mes = getArguments().getInt("mes", 0);
+            Toast.makeText(getContext(), "mes "+ mes,Toast.LENGTH_SHORT).show();
+            if (mes != 0){
+                List<Fruta> valores_beta = Select.from(Fruta.class)
+                        .orderBy("NOMBRE ASC")
+                        .list();
+                list_frutas.clear();
+                for (Fruta item: valores_beta){
+                    int primer_mes = (int) item.getDateIni();
+                    int ultimo_mes = (int) item.getDateEnd();
+
+                    if (ultimo_mes < primer_mes) {
+                        ultimo_mes += 12;
+                        if (mes < primer_mes) {
+                            mes += 12;
+                        }
+                    }
+
+                    if ((primer_mes == 1 && ultimo_mes == 12) || ((primer_mes < mes && mes < ultimo_mes) || primer_mes == mes || ultimo_mes == mes)) {
+                        list_frutas.add(item);
+                    }
+                }
+                rcAdapter = new FrutasAdapter(getActivity(), list_frutas);
+                //attach adapter to recyclerview
+                recyclerView.setAdapter(rcAdapter);
+                getActivity().setTitle(Utils.monthToString((long) mes, getContext()) + " - " + list_frutas.size() + " Frutas ");
+                spinner.setVisibility(View.GONE);
+
+            }else{
+                spinner.setVisibility(View.VISIBLE);
+            }
+        }
 
         return view;
     }

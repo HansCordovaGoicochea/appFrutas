@@ -45,7 +45,6 @@
     <string name="carbohidratos_long">Los glúcidos, carbohidratos, hidratos de carbono o sacáridos (del griego σάκχαρ \"azúcar\") son biomoléculas cuyas principales funciones en los seres vivos son prestar energía inmediata y la función estructural.</string>
 
 
-
     <string name="seasonTitleFirst">Inicio de temporada</string>
     <string name="seasonTitleFirstDescription">¡Ya puedes empezar a consumirlo! El producto acaba de llegar a su punto óptimo de maduración, por lo que su temporada natural se da por empezada.</string>
     <string name="seasonTitleLast">Fin de temporada</string>
@@ -54,6 +53,9 @@
     <string name="seasonTitleOkDescription">La fruta de temporada se ha recogido en su punto óptimo de maduración. Consumirla ahora tiene múltiples beneficios: está mucho más buena, el precio suele ser menor y permite beneficiar al comercio de proximidad, lo que además reduce la contaminación derivada del cultivo y transporte. ¡A disfrutar!</string>
     <string name="seasonTitleOut">Fuera de temporada</string>
     <string name="seasonTitleOutDescription">Si consumes un alimento que no está en temporada, este no habrá sido cultivado respetando su ciclo natural. Su crecimiento y maduración se habrán realizado forzando el proceso de manera artificial, o bien habrá sido importado.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

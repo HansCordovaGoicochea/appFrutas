@@ -3,6 +3,7 @@ package tesis.frutas.com.appfrutas;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Handler;
@@ -32,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import tesis.frutas.com.appfrutas.Fragmentos.FragmentCalendar;
 import tesis.frutas.com.appfrutas.Fragmentos.FragmentFrutas;
 import tesis.frutas.com.appfrutas.clases.Fruta;
 import tesis.frutas.com.appfrutas.utils.Utils;
@@ -172,7 +174,8 @@ public class ActividadPrincipal extends AppCompatActivity{
 
         if (id == R.id.frutas_nav) {
             fragment = new FragmentFrutas();
-        }else if(id == R.id.ingresar){
+        }
+        else if(id == R.id.ingresar){
 
             final EditText clave_admin = new EditText(getApplicationContext());
 
@@ -264,6 +267,8 @@ public class ActividadPrincipal extends AppCompatActivity{
             alertDialog.getWindow().setSoftInputMode (WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             alertDialog.show();
 
+        }else if(id == R.id.calendario_nav){
+            fragment = new FragmentCalendar();
         }
 
         if (fragment != null) {
@@ -286,10 +291,18 @@ public class ActividadPrincipal extends AppCompatActivity{
         }
     }
 
+    private Fragment getCurrentFragment() {
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+        int stackCount = fragmentManager.getBackStackEntryCount();
+        if( fragmentManager.getFragments() != null ) return fragmentManager.getFragments().get( stackCount > 0 ? stackCount-1 : stackCount );
+        else return null;
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+
         return true;
     }
 
