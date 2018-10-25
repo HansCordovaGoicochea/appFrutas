@@ -54,9 +54,7 @@ public class FragmentRecetas extends Fragment implements AdapterView.OnItemSelec
 
     private String estado_lista = "";
 
-    private static List<Fruta> list_frutas = Select.from(Fruta.class)
-            .orderBy("NOMBRE ASC")
-            .list();
+    private static List<Fruta> list_frutas;
     private List<Fruta> nuevaLista;
     private List<Fruta> valores;
 
@@ -106,6 +104,9 @@ public class FragmentRecetas extends Fragment implements AdapterView.OnItemSelec
         //attach linear layout to recyclerview
         recyclerView.setLayoutManager(linearHorizontal);
         //initialize adapter
+        list_frutas = Select.from(Fruta.class)
+                .orderBy("NOMBRE ASC")
+                .list();
         rcAdapter = new RecetasAdapter(getContext(), list_frutas);
 
 
@@ -117,7 +118,18 @@ public class FragmentRecetas extends Fragment implements AdapterView.OnItemSelec
             @Override
             public void onClick(View view) {
 
-//
+//                Toast.makeText(getContext(), "Cdsfsfdsfds", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                alertDialogBuilder.setCancelable(false);
+                View view_dialog = getLayoutInflater().inflate(R.layout.dialog_receta, null);
+                alertDialogBuilder.setView(view_dialog);
+                alertDialog = alertDialogBuilder.create();
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                alertDialog.show();
+
+                TextView txtclose = view_dialog.findViewById(R.id.txtclose);
+
+
             }
         });
 
@@ -277,15 +289,6 @@ public class FragmentRecetas extends Fragment implements AdapterView.OnItemSelec
 
         mLocations = getResources().getStringArray(R.array.spinner_selection_array);
         //poblar spinner
-//        MenuItem item = menu.findItem(R.id.spinner);
-//        Spinner spinner = (Spinner) item.getActionView();
-
-
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.spinner_selection_array, android.R.layout.simple_spinner_item);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinner.setAdapter(adapter);
-
         spinner.setAdapter(new AdapterSpinner(getContext(), R.layout.support_simple_spinner_dropdown_item, mLocations,(String) getActivity().getTitle()));
 
         //buscador de productos en el recycler
