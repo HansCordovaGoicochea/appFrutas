@@ -122,6 +122,9 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_frutas, container, false);
 
+        spinner = (Spinner) getActivity().findViewById(R.id.spinner_nav);
+        spinner.setOnItemSelectedListener(this);
+
         //initialize recyclerview
         recyclerView = view.findViewById(R.id.frutas_recycler_view);
         //fixed size of recyclerview layout
@@ -132,8 +135,6 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
         recyclerView.setLayoutManager(linearHorizontal);
         //initialize adapter
         rcAdapter = new FrutasAdapter(getContext(), list_frutas);
-
-
         //attach adapter to recyclerview
         recyclerView.setAdapter(rcAdapter);
 
@@ -207,8 +208,6 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
                             String selectedUltimo = getResources().getStringArray(R.array.months_number_array)[spinner2.getSelectedItemPosition()];
 
 
-
-
                             Bitmap imagen = ((BitmapDrawable)imagencargar.getDrawable()).getBitmap();
 
                             String fileName = Normalizer.normalize(_nombre.toLowerCase().trim(), Normalizer.Form.NFD).replaceAll(" ", "_").replaceAll("[^\\p{ASCII}]", "");
@@ -227,18 +226,14 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
                             fruta.setDateEnd(Long.parseLong(selectedUltimo));
                             fruta.save();
 //                            Log.e(TAG, selectedPrimero);
-                            Log.e(TAG, selectedUltimo);
+//                            Log.e(TAG, selectedUltimo);
+
 
                             list_frutas.clear();
-                            List<Fruta> list_frutas_nuevo = Select.from(Fruta.class)
-                                    .orderBy("NOMBRE ASC")
-                                    .list();
-                            list_frutas.addAll(list_frutas_nuevo);
+                            List<Fruta> list_vehiculos_nuevo = Fruta.listAll(Fruta.class);
+                            list_frutas.addAll(list_vehiculos_nuevo);
+                            rcAdapter.notifyDataSetChanged();
 
-                            Collections.sort(list_frutas, new CustomComparator());
-                            rcAdapter = new FrutasAdapter(getContext(), list_frutas);
-                            recyclerView.setAdapter(rcAdapter);
-//                            rcAdapter.notifyDataSetChanged();
 
                             alertDialog.dismiss();
 
@@ -252,18 +247,6 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
             }
         });
 
-
-        spinner = (Spinner) getActivity().findViewById(R.id.spinner_nav);
-        spinner.setOnItemSelectedListener(this);
-//        if (getArguments() != null) {
-////            mParam2 = getArguments().getString(ARG_PARAM2);
-//            int mes = getArguments().getInt("mes", 0);
-//            if (mes != 0){
-//
-//            }else{
-//
-//            }
-//        }
 
         return view;
     }
@@ -362,26 +345,26 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
         return valid;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        SharedPreferences preferences = getActivity().getSharedPreferences("admin_pref", Context.MODE_PRIVATE);
-        activo = preferences.getBoolean("activo",false);
-//        Toast.makeText(getContext(), activo+"",Toast.LENGTH_SHORT).show();
-        if (!activo){
-            fab.setVisibility(View.INVISIBLE);
-            hideItemCerrar();
-            showItemIngresar();
-        }else{
-            hideItemIngresar();
-            showItemCerrar();
-            fab.setVisibility(View.VISIBLE);
-        }
-//        Collections.sort(list_frutas);
-        Collections.sort(list_frutas, new CustomComparator());
-        rcAdapter.notifyDataSetChanged();
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//        SharedPreferences preferences = getActivity().getSharedPreferences("admin_pref", Context.MODE_PRIVATE);
+//        activo = preferences.getBoolean("activo",false);
+////        Toast.makeText(getContext(), "resumeeeeeeeee",Toast.LENGTH_SHORT).show();
+//        if (!activo){
+//            fab.setVisibility(View.INVISIBLE);
+//            hideItemCerrar();
+//            showItemIngresar();
+//        }else{
+//            hideItemIngresar();
+//            showItemCerrar();
+//            fab.setVisibility(View.VISIBLE);
+//        }
+////        Collections.sort(list_frutas);
+////        Collections.sort(list_frutas, new CustomComparator());
+////        rcAdapter.notifyDataSetChanged();
+//    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -500,8 +483,6 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
 
         });
     }
-
-
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
@@ -678,7 +659,7 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
                 // do your stuff
                 Log.e(TAG, position+"");
 
-                fruta.delete();
+
 
                 String fileName = Normalizer.normalize( list_frutas.get(position).getNombre().toLowerCase().trim(), Normalizer.Form.NFD).replaceAll(" ", "_").replaceAll("[^\\p{ASCII}]", "");
 
@@ -689,6 +670,8 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
                 if (file.exists()){
                     boolean eliminado = file.delete();
                 }
+
+                fruta.delete();
 
                 new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
                         .setTitleText("Exito!")

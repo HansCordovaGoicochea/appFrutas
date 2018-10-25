@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -43,9 +44,8 @@ import tesis.frutas.com.appfrutas.utils.Utils;
 
 public class FragmentRecetas extends Fragment implements AdapterView.OnItemSelectedListener{
 
-    public static final String ARG_SECTION_TITLE = "";
+
     private static final String TAG = FragmentRecetas.class.getSimpleName();
-    public static final String ARG_SECTION_URL = "";
 
     RecyclerView recyclerView;
     RecetasAdapter rcAdapter;
@@ -60,12 +60,11 @@ public class FragmentRecetas extends Fragment implements AdapterView.OnItemSelec
 
     AlertDialog alertDialog;
 
-    EditText nombre, descripcion, kcal, proteinas, grasas, carbohidratos;
+    Spinner idfruta;
+    EditText nombre, ingredientes, procedimiento;
     Button agregar_fruta;
-    Spinner inicio, fin;
     FloatingActionButton fab;
     boolean activo;
-    ImageView imagencargar;
     Spinner spinner;
 
     public FragmentRecetas() {
@@ -127,7 +126,20 @@ public class FragmentRecetas extends Fragment implements AdapterView.OnItemSelec
                 alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
 
+
+                // Spinner element
+                idfruta = (Spinner) view_dialog.findViewById(R.id.spFruta);
+                // Loading spinner data from database
+                loadSpinnerData();
+
                 TextView txtclose = view_dialog.findViewById(R.id.txtclose);
+                txtclose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
 
 
             }
@@ -139,7 +151,91 @@ public class FragmentRecetas extends Fragment implements AdapterView.OnItemSelec
 
         return view;
     }
+    /**
+     * Function to load the spinner data from SQLite database
+     * */
+    private void loadSpinnerData() {
 
+        // Spinner Drop down elements
+        final List<Fruta> lables = Select.from(Fruta.class)
+                .orderBy("NOMBRE ASC")
+                .list();
+        ArrayList<String> options=new ArrayList<String>();
+
+        options.add("- SELECCIONE UNA FRUTA -");
+        for(Fruta fruta: lables){
+            options.add(fruta.getNombre());
+        }
+        final List<String> frutasList = new ArrayList<>(options);
+// Initializing an ArrayAdapter
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                getContext(),R.layout.spinner_frutas,frutasList){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+
+//        // Drop down layout style - list view with radio button
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_frutas);
+//
+//        // attaching data adapter to spinner
+        idfruta.setAdapter(spinnerArrayAdapter);
+
+        idfruta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+
+                Toast.makeText(getContext(), "position : " + position, Toast.LENGTH_SHORT).show();
+                // If user change the default selection
+                // First item is disable and it is used for hint
+                if(position > 0){
+                    // Notify the selected item text
+//                    Toast.makeText(getContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT).show();
+                    Fruta objfrutaMENOS = lables.get(position -1);
+                    Log.e(TAG, "objfrutaMENOS : " + objfrutaMENOS.getNombre());
+                    Log.e(TAG, "objfrutaMENOS : " + objfrutaMENOS.getId());
+
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+
+
+    }
 
     public void onSignupFailed() {
         Toast.makeText(getActivity().getBaseContext(), "Llene los datos correctamente", Toast.LENGTH_LONG).show();
@@ -148,53 +244,53 @@ public class FragmentRecetas extends Fragment implements AdapterView.OnItemSelec
     public boolean validate() {
         boolean valid = true;
 
-        String _nombre = nombre.getText().toString();
-        String _kcal = kcal.getText().toString();
-        String _grasas = grasas.getText().toString();
-        String _proteinas = proteinas.getText().toString();
-        String _carbohidratos = carbohidratos.getText().toString();
-        String _descripcion = descripcion.getText().toString();
-
-        if (_nombre.isEmpty() || _nombre.length() < 2) {
-            nombre.setError("Al menos 2 caracteres");
-            valid = false;
-        } else {
-            nombre.setError(null);
-        }
-
-        if (_kcal.isEmpty()) {
-            kcal.setError("Al menos 1 caracteres");
-            valid = false;
-        } else {
-            kcal.setError(null);
-        }
-
-        if (_grasas.isEmpty()) {
-            grasas.setError("Al menos 1 caracteres");
-            valid = false;
-        } else {
-            grasas.setError(null);
-        }
-
-        if (_proteinas.isEmpty()) {
-            proteinas.setError("Al menos 1 caracteres");
-            valid = false;
-        } else {
-            proteinas.setError(null);
-        }
-
-        if (_carbohidratos.isEmpty()) {
-            carbohidratos.setError("Al menos 1 caracteres");
-            valid = false;
-        } else {
-            carbohidratos.setError(null);
-        }
-        if (_descripcion.isEmpty() || _descripcion.length() < 20) {
-            descripcion.setError("Al menos 20 caracteres");
-            valid = false;
-        } else {
-            descripcion.setError(null);
-        }
+//        String _nombre = nombre.getText().toString();
+//        String _kcal = kcal.getText().toString();
+//        String _grasas = grasas.getText().toString();
+//        String _proteinas = proteinas.getText().toString();
+//        String _carbohidratos = carbohidratos.getText().toString();
+//        String _descripcion = descripcion.getText().toString();
+//
+//        if (_nombre.isEmpty() || _nombre.length() < 2) {
+//            nombre.setError("Al menos 2 caracteres");
+//            valid = false;
+//        } else {
+//            nombre.setError(null);
+//        }
+//
+//        if (_kcal.isEmpty()) {
+//            kcal.setError("Al menos 1 caracteres");
+//            valid = false;
+//        } else {
+//            kcal.setError(null);
+//        }
+//
+//        if (_grasas.isEmpty()) {
+//            grasas.setError("Al menos 1 caracteres");
+//            valid = false;
+//        } else {
+//            grasas.setError(null);
+//        }
+//
+//        if (_proteinas.isEmpty()) {
+//            proteinas.setError("Al menos 1 caracteres");
+//            valid = false;
+//        } else {
+//            proteinas.setError(null);
+//        }
+//
+//        if (_carbohidratos.isEmpty()) {
+//            carbohidratos.setError("Al menos 1 caracteres");
+//            valid = false;
+//        } else {
+//            carbohidratos.setError(null);
+//        }
+//        if (_descripcion.isEmpty() || _descripcion.length() < 20) {
+//            descripcion.setError("Al menos 20 caracteres");
+//            valid = false;
+//        } else {
+//            descripcion.setError(null);
+//        }
 
 
         return valid;
@@ -207,15 +303,15 @@ public class FragmentRecetas extends Fragment implements AdapterView.OnItemSelec
         SharedPreferences preferences = getActivity().getSharedPreferences("admin_pref", Context.MODE_PRIVATE);
         activo = preferences.getBoolean("activo",false);
 //        Toast.makeText(getContext(), activo+"",Toast.LENGTH_SHORT).show();
-        if (!activo){
-            fab.setVisibility(View.INVISIBLE);
-            hideItemCerrar();
-            showItemIngresar();
-        }else{
-            hideItemIngresar();
-            showItemCerrar();
-            fab.setVisibility(View.VISIBLE);
-        }
+//        if (!activo){
+//            fab.setVisibility(View.INVISIBLE);
+//            hideItemCerrar();
+//            showItemIngresar();
+//        }else{
+//            hideItemIngresar();
+//            showItemCerrar();
+//            fab.setVisibility(View.VISIBLE);
+//        }
 //        Collections.sort(list_frutas);
         Collections.sort(list_frutas, new CustomComparator());
         rcAdapter.notifyDataSetChanged();
