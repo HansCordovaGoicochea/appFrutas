@@ -49,6 +49,7 @@
             android:value="tesis.frutas.com.appfrutas" />
 
         <activity android:name="tesis.frutas.com.appfrutas.CalendarioActivity" />
+        <activity android:name="tesis.frutas.com.appfrutas.ActividadCalendarFruta" />
     </application>
 
 </manifest>

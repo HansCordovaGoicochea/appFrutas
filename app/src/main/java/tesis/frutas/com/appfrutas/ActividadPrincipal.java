@@ -35,6 +35,7 @@ import android.widget.Toast;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import tesis.frutas.com.appfrutas.Fragmentos.FragmentCalendar;
 import tesis.frutas.com.appfrutas.Fragmentos.FragmentFrutas;
+import tesis.frutas.com.appfrutas.Fragmentos.FragmentRecetas;
 import tesis.frutas.com.appfrutas.clases.Fruta;
 import tesis.frutas.com.appfrutas.utils.Utils;
 
@@ -171,9 +172,11 @@ public class ActividadPrincipal extends AppCompatActivity{
         item.setChecked(true);
 
         String title = item.getTitle().toString();
-
+        final SharedPreferences preferences = getSharedPreferences("admin_pref", MODE_PRIVATE);
         if (id == R.id.frutas_nav) {
             fragment = new FragmentFrutas();
+            preferences.edit()
+                    .putBoolean("activo_otro", false).apply();
         }
         else if(id == R.id.ingresar){
 
@@ -214,7 +217,7 @@ public class ActividadPrincipal extends AppCompatActivity{
                     b.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                                SharedPreferences preferences = getSharedPreferences("admin_pref", MODE_PRIVATE);
+
 
                                 String _clave_admin = clave_admin.getText().toString();
                                 if (_clave_admin.isEmpty()) {
@@ -269,6 +272,8 @@ public class ActividadPrincipal extends AppCompatActivity{
 
         }else if(id == R.id.calendario_nav){
             fragment = new FragmentCalendar();
+        }else if(id == R.id.recetas_nav){
+            fragment = new FragmentRecetas();
         }
 
         if (fragment != null) {

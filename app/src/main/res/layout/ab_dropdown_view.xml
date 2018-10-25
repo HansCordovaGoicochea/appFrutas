@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:twitter="http://schemas.android.com/apk/res-auto" android:background="@color/cardview_light_background" android:padding="@dimen/list_padding" android:layout_width="wrap_content" android:layout_height="wrap_content">
+    <TextView android:textSize="@dimen/abc_text_size_body_1_material" android:textColor="@color/primaryDarkColor" android:id="@+id/ab_basemaps_dropdown_title" android:background="?selectableItemBackground" android:padding="@dimen/abc_dropdownitem_text_padding_left" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+</RelativeLayout>

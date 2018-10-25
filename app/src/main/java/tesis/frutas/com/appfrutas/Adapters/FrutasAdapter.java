@@ -84,7 +84,7 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
 //                activityOptions = ActivityOptions.makeSceneTransitionAnimation(((ActividadPrincipal)itemView.getContext()), pairs);
 //            }
 
-            Toast.makeText(itemView.getContext(), ""+getAdapterPosition(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(itemView.getContext(), ""+getAdapterPosition(), Toast.LENGTH_SHORT).show();
             intent.putExtra("idfruta", frutas.get(getAdapterPosition()).getId().toString());
 //            assert activityOptions != null;
 //            context.startActivity(intent, activityOptions.toBundle());
@@ -96,7 +96,9 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
 
             SharedPreferences preferences = itemView.getContext().getSharedPreferences("admin_pref", Context.MODE_PRIVATE);
             activo = preferences.getBoolean("activo",false);
-            if (activo){
+            boolean activo_otro = preferences.getBoolean("activo_otro",false);
+//            Toast.makeText(itemView.getContext(), activo+"",Toast.LENGTH_SHORT).show();
+            if (activo && !activo_otro){
                 menu.setHeaderTitle("Seleccione una opción");
                 //groupId, itemId, order, title
                 menu.add(0, v.getId(), 0, "Editar");
@@ -107,7 +109,7 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
 
         @Override
         public boolean onLongClick(View view) {
-            Toast.makeText(itemView.getContext(), frutas.get(getAdapterPosition()).getNombre()+" -- "+getAdapterPosition(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(itemView.getContext(), frutas.get(getAdapterPosition()).getNombre()+" -- "+getAdapterPosition(), Toast.LENGTH_SHORT).show();
             setPosition(getAdapterPosition());
             return false;
         }

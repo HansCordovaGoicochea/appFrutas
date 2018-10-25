@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import tesis.frutas.com.appfrutas.ActividadCalendarFruta;
 import tesis.frutas.com.appfrutas.ActividadPrincipal;
 import tesis.frutas.com.appfrutas.R;
 
@@ -29,20 +30,20 @@ public class FragmentCalendar extends Fragment {
         }
 
         public void onClick(View v) {
-//            Intent i = new Intent(FragmentCalendar.this.getActivity(), ActividadPrincipal.class);
-//            i.putExtra("mes", this.month);
-//            FragmentCalendar.this.startActivity(i);
-
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//            Toast.makeText(getContext(), "mes"+ this.month,Toast.LENGTH_SHORT).show();
-            Fragment fragment = new FragmentFrutas();
-            Bundle bundle = new Bundle();
-            bundle.putInt("mes", this.month);
-            fragment.setArguments(bundle);
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.contenedor_principal, fragment, fragment.getClass().getSimpleName())
-                    .commit();
+            Intent i = new Intent(FragmentCalendar.this.getActivity(), ActividadCalendarFruta.class);
+            i.putExtra("mes", this.month);
+            FragmentCalendar.this.startActivity(i);
+//
+//            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+////            Toast.makeText(getContext(), "mes"+ this.month,Toast.LENGTH_SHORT).show();
+//            Fragment fragment = new FragmentFrutas();
+//            Bundle bundle = new Bundle();
+//            bundle.putInt("mes", this.month);
+//            fragment.setArguments(bundle);
+//            fragmentManager
+//                    .beginTransaction()
+//                    .replace(R.id.contenedor_principal, fragment, fragment.getClass().getSimpleName())
+//                    .commit();
         }
     }
 
@@ -72,8 +73,7 @@ public class FragmentCalendar extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        Spinner spinner = (Spinner) getActivity().findViewById(R.id.spinner_nav);
-        spinner.setVisibility(View.GONE);
+
 
     }
 
@@ -97,5 +97,7 @@ public class FragmentCalendar extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         MenuItem item=menu.findItem(R.id.action_buscar);
         item.setVisible(false);
+        Spinner spinner = (Spinner) getActivity().findViewById(R.id.spinner_nav);
+        spinner.setVisibility(View.GONE);
     }
 }

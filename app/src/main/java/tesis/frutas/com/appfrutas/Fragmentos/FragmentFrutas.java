@@ -54,6 +54,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import tesis.frutas.com.appfrutas.Adapters.AdapterSpinner;
 import tesis.frutas.com.appfrutas.Adapters.FrutasAdapter;
 import tesis.frutas.com.appfrutas.R;
 import tesis.frutas.com.appfrutas.clases.Fruta;
@@ -254,40 +255,15 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
 
         spinner = (Spinner) getActivity().findViewById(R.id.spinner_nav);
         spinner.setOnItemSelectedListener(this);
-        if (getArguments() != null) {
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-            int mes = getArguments().getInt("mes", 0);
-            Toast.makeText(getContext(), "mes "+ mes,Toast.LENGTH_SHORT).show();
-            if (mes != 0){
-                List<Fruta> valores_beta = Select.from(Fruta.class)
-                        .orderBy("NOMBRE ASC")
-                        .list();
-                list_frutas.clear();
-                for (Fruta item: valores_beta){
-                    int primer_mes = (int) item.getDateIni();
-                    int ultimo_mes = (int) item.getDateEnd();
-
-                    if (ultimo_mes < primer_mes) {
-                        ultimo_mes += 12;
-                        if (mes < primer_mes) {
-                            mes += 12;
-                        }
-                    }
-
-                    if ((primer_mes == 1 && ultimo_mes == 12) || ((primer_mes < mes && mes < ultimo_mes) || primer_mes == mes || ultimo_mes == mes)) {
-                        list_frutas.add(item);
-                    }
-                }
-                rcAdapter = new FrutasAdapter(getActivity(), list_frutas);
-                //attach adapter to recyclerview
-                recyclerView.setAdapter(rcAdapter);
-                getActivity().setTitle(Utils.monthToString((long) mes, getContext()) + " - " + list_frutas.size() + " Frutas ");
-                spinner.setVisibility(View.GONE);
-
-            }else{
-                spinner.setVisibility(View.VISIBLE);
-            }
-        }
+//        if (getArguments() != null) {
+////            mParam2 = getArguments().getString(ARG_PARAM2);
+//            int mes = getArguments().getInt("mes", 0);
+//            if (mes != 0){
+//
+//            }else{
+//
+//            }
+//        }
 
         return view;
     }
@@ -389,8 +365,10 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
     @Override
     public void onResume() {
         super.onResume();
+
         SharedPreferences preferences = getActivity().getSharedPreferences("admin_pref", Context.MODE_PRIVATE);
         activo = preferences.getBoolean("activo",false);
+//        Toast.makeText(getContext(), activo+"",Toast.LENGTH_SHORT).show();
         if (!activo){
             fab.setVisibility(View.INVISIBLE);
             hideItemCerrar();
@@ -470,16 +448,19 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-
+        mLocations = getResources().getStringArray(R.array.spinner_selection_array);
         //poblar spinner
 //        MenuItem item = menu.findItem(R.id.spinner);
 //        Spinner spinner = (Spinner) item.getActionView();
 
+//        Toast.makeText(getContext(), getActivity().getTitle()+"",Toast.LENGTH_SHORT).show();
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.spinner_selection_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.spinner_selection_array, android.R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner.setAdapter(adapter);
+
+        spinner.setAdapter(new AdapterSpinner(getContext(), R.layout.support_simple_spinner_dropdown_item, mLocations, (String) getActivity().getTitle()));
 
         //buscador de productos en el recycler
         final MenuItem buscar = menu.findItem(R.id.action_buscar);
@@ -759,11 +740,4 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
         nav_Menu.findItem(R.id.cerrar).setVisible(true);
     }
 
-//    private void setActionBarSherlock() {
-//        mLocations = getResources().getStringArray(R.array.spinner_selection_array);
-//        Spinner s = (Spinner) getActivity().findViewById(R.id.spinner_toolbar);
-//        s.setAdapter(new AdapterSpinner(((ActionBarActivity) getActivity()).getSupportActionBar().getThemedContext(), R.layout.support_simple_spinner_dropdown_item, this.mLocations));
-////        s.setOnItemSelectedListener(new C03172());
-////        s.setSelection(getPreferenceTemporada());
-//    }
 }

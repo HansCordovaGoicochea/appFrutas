@@ -12,6 +12,14 @@
             android:id="@+id/calendario_nav"
             android:icon="@drawable/calendar"
             android:title="Calendario" />
+        <item
+            android:id="@+id/recetas_nav"
+            android:icon="@drawable/recetas"
+            android:title="Recetas" />
+        <item
+            android:id="@+id/salud_nav"
+            android:icon="@drawable/salud"
+            android:title="Salud" />
     </group>
 
     <item android:title="Administración">

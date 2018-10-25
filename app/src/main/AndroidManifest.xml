@@ -40,7 +40,8 @@
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="tesis.frutas.com.appfrutas" />
 
-        <activity android:name=".CalendarioActivity"></activity>
+        <activity android:name=".CalendarioActivity" />
+        <activity android:name=".ActividadCalendarFruta"></activity>
     </application>
 
 </manifest>
