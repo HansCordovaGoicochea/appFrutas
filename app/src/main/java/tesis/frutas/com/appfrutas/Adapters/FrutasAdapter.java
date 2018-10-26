@@ -204,7 +204,6 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
     public void setFilter(List<Fruta> nuevasFrutas){
         frutas = new ArrayList<>();
 //        frutas.clear();
-
         frutas.addAll(nuevasFrutas);
         notifyDataSetChanged();
     }

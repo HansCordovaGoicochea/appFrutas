@@ -83,17 +83,17 @@ public final class R {
     }
     public static final class drawable {
         public static final int blue_button_background = 0x7f080060;
-        public static final int dialog_background = 0x7f08006f;
-        public static final int dialog_background_dark = 0x7f080070;
-        public static final int error_center_x = 0x7f080072;
-        public static final int error_circle = 0x7f080073;
-        public static final int gray_button_background = 0x7f080074;
-        public static final int green_button_background = 0x7f080075;
-        public static final int red_button_background = 0x7f080096;
-        public static final int success_bow = 0x7f08009a;
-        public static final int success_circle = 0x7f08009b;
-        public static final int warning_circle = 0x7f0800a0;
-        public static final int warning_sigh = 0x7f0800a1;
+        public static final int dialog_background = 0x7f080070;
+        public static final int dialog_background_dark = 0x7f080071;
+        public static final int error_center_x = 0x7f080074;
+        public static final int error_circle = 0x7f080075;
+        public static final int gray_button_background = 0x7f080076;
+        public static final int green_button_background = 0x7f080077;
+        public static final int red_button_background = 0x7f080098;
+        public static final int success_bow = 0x7f08009c;
+        public static final int success_circle = 0x7f08009d;
+        public static final int warning_circle = 0x7f0800a2;
+        public static final int warning_sigh = 0x7f0800a3;
     }
     public static final class id {
         public static final int buttons_container = 0x7f090037;

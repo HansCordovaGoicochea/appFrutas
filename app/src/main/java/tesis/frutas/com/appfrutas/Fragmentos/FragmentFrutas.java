@@ -63,7 +63,7 @@ import tesis.frutas.com.appfrutas.utils.Utils;
 
 
 
-public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelectedListener{
+public class FragmentFrutas extends Fragment {
 
     public static final String ARG_SECTION_TITLE = "Mis Vehículos";
     private static final String TAG = FragmentFrutas.class.getSimpleName();
@@ -80,8 +80,8 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
     private static List<Fruta> list_frutas = Select.from(Fruta.class)
             .orderBy("NOMBRE ASC")
             .list();
-    private List<Fruta> nuevaLista;
-    private List<Fruta> valores;
+    private List<Fruta> nuevaLista = new ArrayList<>();
+    private List<Fruta> valores = new ArrayList<>();
 
     AlertDialog alertDialog;
 
@@ -110,7 +110,7 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+//        setHasOptionsMenu(true);
 
 
     }
@@ -122,8 +122,10 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_frutas, container, false);
 
-        spinner = (Spinner) getActivity().findViewById(R.id.spinner_nav);
-        spinner.setOnItemSelectedListener(this);
+        setHasOptionsMenu(true);
+
+        //poblar spinner
+//        setActionBarSherlock();
 
         //initialize recyclerview
         recyclerView = view.findViewById(R.id.frutas_recycler_view);
@@ -230,9 +232,27 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
 
 
                             list_frutas.clear();
-                            List<Fruta> list_vehiculos_nuevo = Fruta.listAll(Fruta.class);
+                            List<Fruta> list_vehiculos_nuevo = Select.from(Fruta.class)
+                                    .orderBy("NOMBRE ASC")
+                                    .list();
+                            if (valores.size() > 0){
+                                valores.clear();
+                                valores.addAll(list_vehiculos_nuevo);
+                            }
+                            if (nuevaLista.size() > 0){
+                                nuevaLista.clear();
+                                nuevaLista.addAll(list_vehiculos_nuevo);
+                            }
                             list_frutas.addAll(list_vehiculos_nuevo);
-                            rcAdapter.notifyDataSetChanged();
+                            rcAdapter = new FrutasAdapter(getContext(), list_frutas);
+                            recyclerView.setAdapter(rcAdapter);
+//                            rcAdapter.notifyDataSetChanged();
+                            // para poder actualizar el fragment debemos de crear el fragmen con u TAG sino vas a estar sufriendo con esto
+                            Fragment fm = ((FragmentActivity) getContext()).getSupportFragmentManager().findFragmentByTag("FragmentFrutas");
+                            final FragmentTransaction ft = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                            ft.detach(fm);
+                            ft.attach(fm);
+                            ft.commit();
 
 
                             alertDialog.dismiss();
@@ -250,7 +270,6 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
 
         return view;
     }
-
 
     private String guardarImagen(FragmentActivity activity, String imagen_nombre, Bitmap imagen) {
         ContextWrapper cw = new ContextWrapper(activity);
@@ -345,10 +364,10 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
         return valid;
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//
+    @Override
+    public void onResume() {
+        super.onResume();
+
 //        SharedPreferences preferences = getActivity().getSharedPreferences("admin_pref", Context.MODE_PRIVATE);
 //        activo = preferences.getBoolean("activo",false);
 ////        Toast.makeText(getContext(), "resumeeeeeeeee",Toast.LENGTH_SHORT).show();
@@ -361,65 +380,11 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
 //            showItemCerrar();
 //            fab.setVisibility(View.VISIBLE);
 //        }
-////        Collections.sort(list_frutas);
-////        Collections.sort(list_frutas, new CustomComparator());
-////        rcAdapter.notifyDataSetChanged();
-//    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//            Toast.makeText(getContext(), ""+spinner.getSelectedItemPosition(), Toast.LENGTH_SHORT).show();
-        valores = new ArrayList<>();
-        List<Fruta> valores_beta = Select.from(Fruta.class)
-                .orderBy("NOMBRE ASC")
-                .list();
-        int mes_actual = Utils.getMonth();
-
-        if (position == 0) {
-            valores = Select.from(Fruta.class)
-                    .orderBy("NOMBRE ASC")
-                    .list();
-        } else if (position == 1) {
-
-            for (Fruta item: valores_beta){
-                int primer_mes = (int) item.getDateIni();
-                int ultimo_mes = (int) item.getDateEnd();
-
-                if (ultimo_mes < primer_mes) {
-                    ultimo_mes += 12;
-                    if (mes_actual < primer_mes) {
-                        mes_actual += 12;
-                    }
-                }
-
-                if (primer_mes == 1 && ultimo_mes == 12 || ((primer_mes < mes_actual && mes_actual < ultimo_mes) || primer_mes == mes_actual || ultimo_mes == mes_actual)) {
-                    valores.add(item);
-                }
-            }
-
-        } else if (position == 2) {
-            mes_actual = (Utils.getMonth() + 1) % 12;
-
-            for (Fruta item: valores_beta){
-                int primer_mes = (int) item.getDateIni();
-                int ultimo_mes = (int) item.getDateEnd();
-
-                if (!(primer_mes == 1 && ultimo_mes == 12) && (primer_mes == mes_actual || primer_mes == (mes_actual + 1) % 12)) {
-                    valores.add(item);
-                }
-            }
-        }
-        estado_lista = "Filtro";
-//        list_frutas.clear();
-        rcAdapter = new FrutasAdapter(getActivity(), valores);
-        //attach adapter to recyclerview
-        recyclerView.setAdapter(rcAdapter);
+//        Collections.sort(list_frutas);
+//        Collections.sort(list_frutas, new CustomComparator());
+//        rcAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 
     public class CustomComparator implements Comparator<Fruta> {
         @Override
@@ -431,19 +396,6 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        mLocations = getResources().getStringArray(R.array.spinner_selection_array);
-        //poblar spinner
-//        MenuItem item = menu.findItem(R.id.spinner);
-//        Spinner spinner = (Spinner) item.getActionView();
-
-//        Toast.makeText(getContext(), getActivity().getTitle()+"",Toast.LENGTH_SHORT).show();
-
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.spinner_selection_array, android.R.layout.simple_spinner_item);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinner.setAdapter(adapter);
-
-        spinner.setAdapter(new AdapterSpinner(getContext(), R.layout.support_simple_spinner_dropdown_item, mLocations, (String) getActivity().getTitle()));
 
         //buscador de productos en el recycler
         final MenuItem buscar = menu.findItem(R.id.action_buscar);
@@ -464,6 +416,8 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
                 if (s.length() > 0){
                     estado_lista = "Buscando";
                 }
+
+                fab.setVisibility(s.isEmpty() ? View.VISIBLE : View.GONE);
 
                 nuevaLista = new ArrayList<>();
                 for (Fruta fruta : list_frutas) {
@@ -517,7 +471,7 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
 
 
                 // do your stuff
-                Log.e(TAG, position+"");
+//                Log.e(TAG, position+"");
 //                Log.e(TAG, position+"");
 //                Toast.makeText(getContext(), "Cdsfsfdsfds", Toast.LENGTH_SHORT).show();
 
@@ -606,6 +560,7 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
                 agregar_fruta.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+//                        estado_lista = "";
 
                         String _nombre = nombre.getText().toString();
                         String _kcal = kcal.getText().toString();
@@ -636,7 +591,7 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
 
 //                        list_frutas.remove(position);
                         list_frutas.clear();
-                        rcAdapter.notifyDataSetChanged();
+                        //rcAdapter.notifyDataSetChanged();
                         List<Fruta> list_frutas_nuevo = Select.from(Fruta.class)
                                 .orderBy("NOMBRE ASC")
                                 .list();
@@ -644,10 +599,18 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
                         rcAdapter = new FrutasAdapter(getContext(), list_frutas);
                         recyclerView.setAdapter(rcAdapter);
 
+
+//                        Fragment fm = ((FragmentActivity) getContext()).getSupportFragmentManager().findFragmentByTag("FragmentFrutas");
+//                        final FragmentTransaction ft = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+//                        ft.detach(fm);
+//                        ft.attach(fm);
+//                        ft.commit();
+
                         new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
                                 .setTitleText("Exito!")
                                 .setContentText("Fruta Actualizada")
                                 .show();
+
 
                     }
                 });
@@ -657,7 +620,7 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
                 break;
             case "Eliminar":
                 // do your stuff
-                Log.e(TAG, position+"");
+//                Log.e(TAG, position+"");
 
 
 
@@ -672,19 +635,27 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
                 }
 
                 fruta.delete();
+                removeAt(position);
 
+//                Fragment fm = ((FragmentActivity) getContext()).getSupportFragmentManager().findFragmentByTag("FragmentFrutas");
+//                final FragmentTransaction ft = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+//                ft.detach(fm);
+//                ft.attach(fm);
+//                ft.commit();
+//                estado_lista = "";
                 new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
                         .setTitleText("Exito!")
                         .setContentText("Fruta Eliminada")
                         .show();
 
-                list_frutas.clear();
-                List<Fruta> list_frutas_nuevo = Select.from(Fruta.class)
-                        .orderBy("NOMBRE ASC")
-                        .list();
-                list_frutas.addAll(list_frutas_nuevo);
-                rcAdapter = new FrutasAdapter(getContext(), list_frutas);
-                recyclerView.setAdapter(rcAdapter);
+
+//                list_frutas.clear();
+//                List<Fruta> list_frutas_nuevo = Select.from(Fruta.class)
+//                        .orderBy("NOMBRE ASC")
+//                        .list();
+//                list_frutas.addAll(list_frutas_nuevo);
+//                rcAdapter = new FrutasAdapter(getContext(), list_frutas);
+//                recyclerView.setAdapter(rcAdapter);
 
                 break;
         }
@@ -692,6 +663,12 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
 
 
         return super.onContextItemSelected(item);
+    }
+
+    public void removeAt(int position) {
+        list_frutas.remove(position);
+        rcAdapter.notifyItemRemoved(position);
+        rcAdapter.notifyItemRangeChanged(position, list_frutas.size());
     }
 
 
@@ -721,6 +698,74 @@ public class FragmentFrutas extends Fragment implements AdapterView.OnItemSelect
         NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.cerrar).setVisible(true);
+    }
+
+
+    private void setActionBarSherlock() {
+        mLocations = getResources().getStringArray(R.array.spinner_selection_array);
+
+        Spinner s = (Spinner) getActivity().findViewById(R.id.spinner_nav);
+        s.setAdapter(new AdapterSpinner(getContext(), R.layout.support_simple_spinner_dropdown_item, mLocations, (String) getActivity().getTitle()));
+
+        s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//            Toast.makeText(getContext(), ""+spinner.getSelectedItemPosition(), Toast.LENGTH_SHORT).show();
+                valores = new ArrayList<>();
+                List<Fruta> valores_beta = Select.from(Fruta.class)
+                        .orderBy("NOMBRE ASC")
+                        .list();
+                int mes_actual = Utils.getMonth();
+
+                if (position == 0) {
+                    valores = Select.from(Fruta.class)
+                            .orderBy("NOMBRE ASC")
+                            .list();
+                } else if (position == 1) {
+
+                    for (Fruta item: valores_beta){
+                        int primer_mes = (int) item.getDateIni();
+                        int ultimo_mes = (int) item.getDateEnd();
+
+                        if (ultimo_mes < primer_mes) {
+                            ultimo_mes += 12;
+                            if (mes_actual < primer_mes) {
+                                mes_actual += 12;
+                            }
+                        }
+
+                        if (primer_mes == 1 && ultimo_mes == 12 || ((primer_mes < mes_actual && mes_actual < ultimo_mes) || primer_mes == mes_actual || ultimo_mes == mes_actual)) {
+                            valores.add(item);
+                        }
+                    }
+
+                } else if (position == 2) {
+                    mes_actual = (Utils.getMonth() + 1) % 12;
+
+                    for (Fruta item: valores_beta){
+                        int primer_mes = (int) item.getDateIni();
+                        int ultimo_mes = (int) item.getDateEnd();
+
+                        if (!(primer_mes == 1 && ultimo_mes == 12) && (primer_mes == mes_actual || primer_mes == (mes_actual + 1) % 12)) {
+                            valores.add(item);
+                        }
+                    }
+                }
+                estado_lista = "Filtro";
+//        list_frutas.clear();
+                rcAdapter = new FrutasAdapter(getActivity(), valores);
+                //attach adapter to recyclerview
+                recyclerView.setAdapter(rcAdapter);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+//        s.setSelection(-1);
+
     }
 
 }
