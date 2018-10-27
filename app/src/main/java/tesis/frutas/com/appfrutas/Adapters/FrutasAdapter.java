@@ -36,18 +36,18 @@ import tesis.frutas.com.appfrutas.ScrollingActivity;
 import tesis.frutas.com.appfrutas.clases.Fruta;
 import tesis.frutas.com.appfrutas.utils.Utils;
 
-public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder>{
+public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder> implements Filterable{
 
     private final Context context;
     private List<Fruta> frutas;
-//    private List<Fruta> frutasFiltered;
+    private List<Fruta> frutasFiltered;
     private int position;
     boolean activo;
 
     public FrutasAdapter(Context context, List<Fruta> frutas) {
         this.context = context;
         this.frutas = frutas;
-//        this.frutasFiltered = frutas;
+        this.frutasFiltered = frutas;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener, View.OnLongClickListener {
@@ -209,38 +209,38 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
     }
 
 
-//    @Override
-//    public Filter getFilter() {
-//        return new Filter() {
-//            @Override
-//            protected FilterResults performFiltering(CharSequence charSequence) {
-//                String charString = charSequence.toString();
-//                if (charString.isEmpty()) {
-//                    frutas = frutasFiltered;
-//                } else {
-//
-//                    List<Fruta> filteredList = new ArrayList<>();
-//                    for (Fruta row : frutasFiltered) {
-//
-//                        // name match condition. this might differ depending on your requirement
-//                        // here we are looking for name or phone number match
-//                        if (row.getNombre().toLowerCase().contains(charString.toLowerCase())) {
-//                            filteredList.add(row);
-//                        }
-//                    }
-//                    frutas = filteredList;
-//                }
-//
-//                FilterResults filterResults = new FilterResults();
-//                filterResults.values = frutas;
-//                return filterResults;
-//            }
-//
-//            @Override
-//            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-//                frutas = (ArrayList<Fruta>) filterResults.values;
-//                notifyDataSetChanged();
-//            }
-//        };
-//    }
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    frutas = frutasFiltered;
+                } else {
+
+                    List<Fruta> filteredList = new ArrayList<>();
+                    for (Fruta row : frutasFiltered) {
+
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+                        if (row.getNombre().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(row);
+                        }
+                    }
+                    frutas = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = frutas;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                frutas = (ArrayList<Fruta>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 }

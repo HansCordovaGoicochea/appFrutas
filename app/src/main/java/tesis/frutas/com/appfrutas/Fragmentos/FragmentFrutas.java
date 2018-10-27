@@ -76,10 +76,13 @@ public class FragmentFrutas extends Fragment {
     private String[] mLocations;
 
     private String estado_lista = "";
+//
+//    private static List<Fruta> list_frutas = Select.from(Fruta.class)
+//            .orderBy("NOMBRE ASC")
+//            .list();
 
-    private static List<Fruta> list_frutas = Select.from(Fruta.class)
-            .orderBy("NOMBRE ASC")
-            .list();
+    private static List<Fruta> list_frutas = new ArrayList<Fruta>();
+
     private List<Fruta> nuevaLista = new ArrayList<>();
     private List<Fruta> valores = new ArrayList<>();
 
@@ -110,9 +113,84 @@ public class FragmentFrutas extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
 
 
+    }
+
+    private void retrieve()
+    {
+        list_frutas.clear();
+        list_frutas = Select.from(Fruta.class)
+            .orderBy("NOMBRE ASC")
+            .list();
+
+        Toast.makeText(getContext(), "dfdfd"+list_frutas.size(),Toast.LENGTH_SHORT).show();
+        //SET ADAPTER TO RV
+        if(list_frutas.size()>0)
+        {
+//            recyclerView.setAdapter(rcAdapter);
+            rcAdapter.notifyDataSetChanged();
+        }
+
+    }
+
+    public void fetchRecords() {
+
+
+        rcAdapter = new FrutasAdapter(getContext(), list_frutas);
+
+        //fixed size of recyclerview layout
+//        recyclerView.setHasFixedSize(true);
+        //initialize linear layout manager horizontally
+        LinearLayoutManager linearHorizontal = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+        //attach linear layout to recyclerview
+        recyclerView.setLayoutManager(linearHorizontal);
+        //initialize adapter
+        recyclerView.setAdapter(rcAdapter);
+
+        list_frutas.clear();
+
+//        List<Fruta> data = Select.from(Fruta.class)
+//                .orderBy("NOMBRE ASC")
+//                .list();
+        List<Fruta> data = Select.from(Fruta.class)
+                .orderBy("NOMBRE ASC")
+                .list();
+
+        if (data.size()>0){
+            for (int i = 0; i<data.size(); i++){
+                long id = data.get(i).getId();
+                String _nombre = data.get(i).getNombre();
+                String _kcal =   data.get(i).getKcal();
+                String _grasas =  data.get(i).getGrasas();
+                String _proteinas = data.get(i).getProteinas();
+                String _carbohidratos =      data.get(i).getCarbohidratos();
+                String _descripcion =  data.get(i).getDescripcion();
+                long selectedPrimero = data.get(i).getDateIni();
+                long selectedUltimo = data.get(i).getDateEnd();
+
+
+                Fruta fruta = new Fruta();
+                fruta.setId(id);
+                fruta.setNombre(_nombre);
+                fruta.setKcal(_kcal);
+                fruta.setGrasas(_grasas);
+                fruta.setProteinas(_proteinas);
+                fruta.setCarbohidratos(_carbohidratos);
+                fruta.setDescripcion(_descripcion);
+                fruta.setDateIni(selectedPrimero);
+                fruta.setDateEnd(selectedUltimo);
+
+                list_frutas.add(fruta);
+
+
+            }
+            rcAdapter.notifyDataSetChanged();
+
+        }else {
+            Toast.makeText(getContext(), "No Records found.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -120,27 +198,26 @@ public class FragmentFrutas extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_frutas, container, false);
+        final View viewRoot = inflater.inflate(R.layout.fragment_frutas, container, false);
 
-        setHasOptionsMenu(true);
 
-        //poblar spinner
-//        setActionBarSherlock();
-
-        //initialize recyclerview
-        recyclerView = view.findViewById(R.id.frutas_recycler_view);
-        //fixed size of recyclerview layout
-        recyclerView.setHasFixedSize(true);
-        //initialize linear layout manager horizontally
-        LinearLayoutManager linearHorizontal = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
-        //attach linear layout to recyclerview
-        recyclerView.setLayoutManager(linearHorizontal);
-        //initialize adapter
-        rcAdapter = new FrutasAdapter(getContext(), list_frutas);
+//        //initialize recyclerview
+        recyclerView = viewRoot.findViewById(R.id.frutas_recycler_view);
+//        //fixed size of recyclerview layout
+//        recyclerView.setHasFixedSize(true);
+//        //initialize linear layout manager horizontally
+//        LinearLayoutManager linearHorizontal = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+//        //attach linear layout to recyclerview
+//        recyclerView.setLayoutManager(linearHorizontal);
+//        //initialize adapter
+//        rcAdapter = new FrutasAdapter(getContext(), list_frutas);
         //attach adapter to recyclerview
-        recyclerView.setAdapter(rcAdapter);
+//        recyclerView.setAdapter(rcAdapter);
+//        retrieve();
+//        Log.e(TAG, viewRoot+"");
+        fetchRecords();
 
-        fab =  view.findViewById(R.id.fab);
+        fab =  viewRoot.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -163,7 +240,7 @@ public class FragmentFrutas extends Fragment {
                 carbohidratos = view_dialog.findViewById(R.id.input_carbo);
                 descripcion = view_dialog.findViewById(R.id.descripcion_txt);
 
-                final Spinner spinner = view_dialog.findViewById(R.id.primer_mes);
+                final Spinner spinner1 = view_dialog.findViewById(R.id.primer_mes);
                 final Spinner spinner2 = view_dialog.findViewById(R.id.ultimo_mes);
 
                 txtclose.setOnClickListener(new View.OnClickListener() {
@@ -206,7 +283,7 @@ public class FragmentFrutas extends Fragment {
                             String _proteinas = proteinas.getText().toString();
                             String _carbohidratos = carbohidratos.getText().toString();
                             String _descripcion = descripcion.getText().toString();
-                            String selectedPrimero = getResources().getStringArray(R.array.months_number_array)[spinner.getSelectedItemPosition()];
+                            String selectedPrimero = getResources().getStringArray(R.array.months_number_array)[spinner1.getSelectedItemPosition()];
                             String selectedUltimo = getResources().getStringArray(R.array.months_number_array)[spinner2.getSelectedItemPosition()];
 
 
@@ -230,29 +307,30 @@ public class FragmentFrutas extends Fragment {
 //                            Log.e(TAG, selectedPrimero);
 //                            Log.e(TAG, selectedUltimo);
 
+                            fetchRecords();
 
-                            list_frutas.clear();
-                            List<Fruta> list_vehiculos_nuevo = Select.from(Fruta.class)
-                                    .orderBy("NOMBRE ASC")
-                                    .list();
-                            if (valores.size() > 0){
-                                valores.clear();
-                                valores.addAll(list_vehiculos_nuevo);
-                            }
-                            if (nuevaLista.size() > 0){
-                                nuevaLista.clear();
-                                nuevaLista.addAll(list_vehiculos_nuevo);
-                            }
-                            list_frutas.addAll(list_vehiculos_nuevo);
-                            rcAdapter = new FrutasAdapter(getContext(), list_frutas);
-                            recyclerView.setAdapter(rcAdapter);
-//                            rcAdapter.notifyDataSetChanged();
-                            // para poder actualizar el fragment debemos de crear el fragmen con u TAG sino vas a estar sufriendo con esto
-                            Fragment fm = ((FragmentActivity) getContext()).getSupportFragmentManager().findFragmentByTag("FragmentFrutas");
-                            final FragmentTransaction ft = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
-                            ft.detach(fm);
-                            ft.attach(fm);
-                            ft.commit();
+//                            list_frutas.clear();
+//                            List<Fruta> list_vehiculos_nuevo = Select.from(Fruta.class)
+//                                    .orderBy("NOMBRE ASC")
+//                                    .list();
+//                            if (valores.size() > 0){
+//                                valores.clear();
+//                                valores.addAll(list_vehiculos_nuevo);
+//                            }
+//                            if (nuevaLista.size() > 0){
+//                                nuevaLista.clear();
+//                                nuevaLista.addAll(list_vehiculos_nuevo);
+//                            }
+//                            list_frutas.addAll(list_vehiculos_nuevo);
+//                            rcAdapter = new FrutasAdapter(getContext(), list_frutas);
+//                            recyclerView.setAdapter(rcAdapter);
+////                            rcAdapter.notifyDataSetChanged();
+//                            // para poder actualizar el fragment debemos de crear el fragmen con u TAG sino vas a estar sufriendo con esto
+//                            Fragment fm = ((FragmentActivity) getContext()).getSupportFragmentManager().findFragmentByTag("FragmentFrutas");
+//                            final FragmentTransaction ft = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+//                            ft.detach(fm);
+//                            ft.attach(fm);
+//                            ft.commit();
 
 
                             alertDialog.dismiss();
@@ -268,7 +346,7 @@ public class FragmentFrutas extends Fragment {
         });
 
 
-        return view;
+        return viewRoot;
     }
 
     private String guardarImagen(FragmentActivity activity, String imagen_nombre, Bitmap imagen) {
@@ -368,6 +446,7 @@ public class FragmentFrutas extends Fragment {
     public void onResume() {
         super.onResume();
 
+
 //        SharedPreferences preferences = getActivity().getSharedPreferences("admin_pref", Context.MODE_PRIVATE);
 //        activo = preferences.getBoolean("activo",false);
 ////        Toast.makeText(getContext(), "resumeeeeeeeee",Toast.LENGTH_SHORT).show();
@@ -397,6 +476,9 @@ public class FragmentFrutas extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
+        //poblar spinner
+        setActionBarSherlock();
+
         //buscador de productos en el recycler
         final MenuItem buscar = menu.findItem(R.id.action_buscar);
 //        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
@@ -412,22 +494,26 @@ public class FragmentFrutas extends Fragment {
             public boolean onQueryTextChange(String s) {
                 s = s.toLowerCase();
 
-//                rcAdapter.getFilter().filter(s);
                 if (s.length() > 0){
                     estado_lista = "Buscando";
                 }
-
                 fab.setVisibility(s.isEmpty() ? View.VISIBLE : View.GONE);
-
-                nuevaLista = new ArrayList<>();
-                for (Fruta fruta : list_frutas) {
-                    String nombre_fruta = fruta.getNombre().toLowerCase();
-                    if (nombre_fruta.contains(s)){
-                        nuevaLista.add(fruta);
+                //                rcAdapter.getFilter().filter(s);
+                if (s.isEmpty()){
+                    fetchRecords();
+                }else{
+                    nuevaLista = new ArrayList<>();
+                    for (Fruta fruta : list_frutas) {
+                        String nombre_fruta = fruta.getNombre().toLowerCase();
+                        if (nombre_fruta.contains(s)){
+                            nuevaLista.add(fruta);
+                        }
                     }
+
+                    rcAdapter.setFilter(nuevaLista);
+
                 }
 
-                rcAdapter.setFilter(nuevaLista);
 
 
                 return false;
@@ -451,24 +537,25 @@ public class FragmentFrutas extends Fragment {
 
         String title = item.getTitle().toString();
         final Fruta fruta;
-
-        switch (estado_lista){
-            case "Buscando":
-                fruta = Fruta.findById(Fruta.class, nuevaLista.get(position).getId());
-                break;
-            case "Filtro":
-                fruta = Fruta.findById(Fruta.class, valores.get(position).getId());
-                break;
-            default:
-                fruta = Fruta.findById(Fruta.class, list_frutas.get(position).getId());
-                break;
-        }
+        fruta = Fruta.findById(Fruta.class, list_frutas.get(position).getId());
+//        switch (estado_lista){
+//            case "Buscando":
+//                fruta = Fruta.findById(Fruta.class, nuevaLista.get(position).getId());
+//                Toast.makeText(getContext(), "Buscando", Toast.LENGTH_SHORT).show();
+//                break;
+//            case "Filtro":
+//                fruta = Fruta.findById(Fruta.class, valores.get(position).getId());
+//                Toast.makeText(getContext(), "Filtro", Toast.LENGTH_SHORT).show();
+//                break;
+//            default:
+//                fruta = Fruta.findById(Fruta.class, list_frutas.get(position).getId());
+//                Toast.makeText(getContext(), "vaciooooooo", Toast.LENGTH_SHORT).show();
+//                break;
+//        }
 
 
         switch (title) {
             case "Editar":
-
-
 
                 // do your stuff
 //                Log.e(TAG, position+"");
@@ -498,7 +585,7 @@ public class FragmentFrutas extends Fragment {
                 proteinas = view_dialog.findViewById(R.id.input_proteinas);
                 carbohidratos = view_dialog.findViewById(R.id.input_carbo);
                 descripcion = view_dialog.findViewById(R.id.descripcion_txt);
-                final Spinner spinner = view_dialog.findViewById(R.id.primer_mes);
+                final Spinner spinner1 = view_dialog.findViewById(R.id.primer_mes);
                 final Spinner spinner2 = view_dialog.findViewById(R.id.ultimo_mes);
 
                 nombre.setText(fruta.getNombre());
@@ -508,7 +595,7 @@ public class FragmentFrutas extends Fragment {
                 carbohidratos.setText(fruta.getCarbohidratos());
                 descripcion.setText(fruta.getDescripcion());
 
-                spinner.setSelection((int)fruta.getDateIni()-1);
+                spinner1.setSelection((int)fruta.getDateIni()-1);
                 spinner2.setSelection((int)fruta.getDateEnd()-1);
 
                 agregar_fruta = view_dialog.findViewById(R.id.agregar_fruta);
@@ -568,7 +655,7 @@ public class FragmentFrutas extends Fragment {
                         String _proteinas = proteinas.getText().toString();
                         String _carbohidratos = carbohidratos.getText().toString();
                         String _descripcion = descripcion.getText().toString();
-                        String selectedPrimero = getResources().getStringArray(R.array.months_number_array)[spinner.getSelectedItemPosition()];
+                        String selectedPrimero = getResources().getStringArray(R.array.months_number_array)[spinner1.getSelectedItemPosition()];
                         String selectedUltimo = getResources().getStringArray(R.array.months_number_array)[spinner2.getSelectedItemPosition()];
 
                         Bitmap imagen = ((BitmapDrawable)imagencargar.getDrawable()).getBitmap();
@@ -588,23 +675,26 @@ public class FragmentFrutas extends Fragment {
                         fruta.save();
 
                         alertDialog.dismiss();
+                        fetchRecords();
+////                        list_frutas.remove(position);
+//                        list_frutas.clear();
+//                        //rcAdapter.notifyDataSetChanged();
+//                        List<Fruta> list_frutas_nuevo = Select.from(Fruta.class)
+//                                .orderBy("NOMBRE ASC")
+//                                .list();
+//                        list_frutas.addAll(list_frutas_nuevo);
+////                        rcAdapter = new FrutasAdapter(getContext(), list_frutas);
+////                        recyclerView.setAdapter(rcAdapter);
+//                        rcAdapter.notifyDataSetChanged();
 
-//                        list_frutas.remove(position);
-                        list_frutas.clear();
-                        //rcAdapter.notifyDataSetChanged();
-                        List<Fruta> list_frutas_nuevo = Select.from(Fruta.class)
-                                .orderBy("NOMBRE ASC")
-                                .list();
-                        list_frutas.addAll(list_frutas_nuevo);
-                        rcAdapter = new FrutasAdapter(getContext(), list_frutas);
-                        recyclerView.setAdapter(rcAdapter);
-
+//                        fetchRecords(getActivity().);
 
 //                        Fragment fm = ((FragmentActivity) getContext()).getSupportFragmentManager().findFragmentByTag("FragmentFrutas");
 //                        final FragmentTransaction ft = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
 //                        ft.detach(fm);
 //                        ft.attach(fm);
 //                        ft.commit();
+                        estado_lista = "";
 
                         new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
                                 .setTitleText("Exito!")
@@ -635,7 +725,8 @@ public class FragmentFrutas extends Fragment {
                 }
 
                 fruta.delete();
-                removeAt(position);
+//                removeAt(position);
+                fetchRecords();
 
 //                Fragment fm = ((FragmentActivity) getContext()).getSupportFragmentManager().findFragmentByTag("FragmentFrutas");
 //                final FragmentTransaction ft = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
@@ -706,6 +797,14 @@ public class FragmentFrutas extends Fragment {
 
         Spinner s = (Spinner) getActivity().findViewById(R.id.spinner_nav);
         s.setAdapter(new AdapterSpinner(getContext(), R.layout.support_simple_spinner_dropdown_item, mLocations, (String) getActivity().getTitle()));
+//        @Override
+//        public void onPrepareOptionsMenu(Menu menu) {
+//            MenuItem item=menu.findItem(R.id.action_buscar);
+//            item.setVisible(false);
+//            Spinner spinner = (Spinner) getActivity().findViewById(R.id.spinner_nav);
+//            spinner.setVisibility(View.GONE);
+//        }
+        s.setVisibility(View.VISIBLE);
 
         s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -718,9 +817,12 @@ public class FragmentFrutas extends Fragment {
                 int mes_actual = Utils.getMonth();
 
                 if (position == 0) {
-                    valores = Select.from(Fruta.class)
-                            .orderBy("NOMBRE ASC")
-                            .list();
+                    Log.e(TAG, ""+parent.getRootView());
+//                    valores = Select.from(Fruta.class)
+//                            .orderBy("NOMBRE ASC")
+//                            .list();
+                    fetchRecords();
+//                    retrieve();
                 } else if (position == 1) {
 
                     for (Fruta item: valores_beta){
@@ -738,6 +840,9 @@ public class FragmentFrutas extends Fragment {
                             valores.add(item);
                         }
                     }
+                    rcAdapter = new FrutasAdapter(getActivity(), valores);
+                    //attach adapter to recyclerview
+                    recyclerView.setAdapter(rcAdapter);
 
                 } else if (position == 2) {
                     mes_actual = (Utils.getMonth() + 1) % 12;
@@ -750,12 +855,13 @@ public class FragmentFrutas extends Fragment {
                             valores.add(item);
                         }
                     }
+                    rcAdapter = new FrutasAdapter(getActivity(), valores);
+                    //attach adapter to recyclerview
+                    recyclerView.setAdapter(rcAdapter);
                 }
                 estado_lista = "Filtro";
 //        list_frutas.clear();
-                rcAdapter = new FrutasAdapter(getActivity(), valores);
-                //attach adapter to recyclerview
-                recyclerView.setAdapter(rcAdapter);
+
 
             }
 

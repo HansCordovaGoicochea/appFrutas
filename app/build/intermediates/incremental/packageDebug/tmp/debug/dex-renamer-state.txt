@@ -1,4 +1,4 @@
-#Fri Oct 26 12:07:25 COT 2018
+#Fri Oct 26 19:32:51 COT 2018
 base.0=C\:\\Users\\sc2\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex

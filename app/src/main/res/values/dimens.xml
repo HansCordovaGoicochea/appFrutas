@@ -10,4 +10,5 @@
     <dimen name="design_tab_active_text_size" tools:override="true">22sp</dimen>
     <dimen name="space_lines">8dp</dimen>
     <dimen name="list_padding">10dp</dimen>
+    <dimen name="spacing_smaller">5</dimen>
 </resources>
