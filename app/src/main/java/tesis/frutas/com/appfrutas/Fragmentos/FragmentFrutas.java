@@ -511,7 +511,8 @@ public class FragmentFrutas extends Fragment {
                     }
 
                     rcAdapter.setFilter(nuevaLista);
-
+//                    list_frutas.clear();
+//                    list_frutas.addAll(nuevaLista);
                 }
 
 
@@ -529,6 +530,7 @@ public class FragmentFrutas extends Fragment {
         int position = -1;
         try {
             position = ((FrutasAdapter)recyclerView.getAdapter()).getPosition();
+
 //            Toast.makeText(getContext(), list_frutas.get(position).getId().toString(), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Log.d(TAG, e.getLocalizedMessage(), e);
@@ -817,6 +819,7 @@ public class FragmentFrutas extends Fragment {
                 int mes_actual = Utils.getMonth();
 
                 if (position == 0) {
+                    fab.setVisibility(View.VISIBLE);
                     Log.e(TAG, ""+parent.getRootView());
 //                    valores = Select.from(Fruta.class)
 //                            .orderBy("NOMBRE ASC")
@@ -824,7 +827,7 @@ public class FragmentFrutas extends Fragment {
                     fetchRecords();
 //                    retrieve();
                 } else if (position == 1) {
-
+                    fab.setVisibility(View.GONE);
                     for (Fruta item: valores_beta){
                         int primer_mes = (int) item.getDateIni();
                         int ultimo_mes = (int) item.getDateEnd();
@@ -845,6 +848,7 @@ public class FragmentFrutas extends Fragment {
                     recyclerView.setAdapter(rcAdapter);
 
                 } else if (position == 2) {
+                    fab.setVisibility(View.GONE);
                     mes_actual = (Utils.getMonth() + 1) % 12;
 
                     for (Fruta item: valores_beta){

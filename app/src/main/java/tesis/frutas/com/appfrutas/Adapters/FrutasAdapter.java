@@ -225,7 +225,28 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
                         // name match condition. this might differ depending on your requirement
                         // here we are looking for name or phone number match
                         if (row.getNombre().toLowerCase().contains(charString.toLowerCase())) {
-                            filteredList.add(row);
+                            long id = row.getId();
+                            String _nombre = row.getNombre();
+                            String _kcal =   row.getKcal();
+                            String _grasas =  row.getGrasas();
+                            String _proteinas = row.getProteinas();
+                            String _carbohidratos = row.getCarbohidratos();
+                            String _descripcion =  row.getDescripcion();
+                            long selectedPrimero = row.getDateIni();
+                            long selectedUltimo = row.getDateEnd();
+
+                            Fruta fruta = new Fruta();
+                            fruta.setId(id);
+                            fruta.setNombre(_nombre);
+                            fruta.setKcal(_kcal);
+                            fruta.setGrasas(_grasas);
+                            fruta.setProteinas(_proteinas);
+                            fruta.setCarbohidratos(_carbohidratos);
+                            fruta.setDescripcion(_descripcion);
+                            fruta.setDateIni(selectedPrimero);
+                            fruta.setDateEnd(selectedUltimo);
+
+                            filteredList.add(fruta);
                         }
                     }
                     frutas = filteredList;
@@ -238,9 +259,11 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                frutas = (ArrayList<Fruta>) filterResults.values;
+                frutas = (List<Fruta>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
     }
+
+
 }
