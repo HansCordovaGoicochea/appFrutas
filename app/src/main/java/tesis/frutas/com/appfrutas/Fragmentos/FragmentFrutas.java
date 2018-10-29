@@ -494,14 +494,14 @@ public class FragmentFrutas extends Fragment {
             public boolean onQueryTextChange(String s) {
                 s = s.toLowerCase();
 
-                if (s.length() > 0){
-                    estado_lista = "Buscando";
-                }
+
                 fab.setVisibility(s.isEmpty() ? View.VISIBLE : View.GONE);
                 //                rcAdapter.getFilter().filter(s);
                 if (s.isEmpty()){
+                    estado_lista = "";
                     fetchRecords();
                 }else{
+                    estado_lista = "Buscando";
                     nuevaLista = new ArrayList<>();
                     for (Fruta fruta : list_frutas) {
                         String nombre_fruta = fruta.getNombre().toLowerCase();
@@ -539,21 +539,21 @@ public class FragmentFrutas extends Fragment {
 
         String title = item.getTitle().toString();
         final Fruta fruta;
-        fruta = Fruta.findById(Fruta.class, list_frutas.get(position).getId());
-//        switch (estado_lista){
-//            case "Buscando":
-//                fruta = Fruta.findById(Fruta.class, nuevaLista.get(position).getId());
-//                Toast.makeText(getContext(), "Buscando", Toast.LENGTH_SHORT).show();
-//                break;
+//        fruta = Fruta.findById(Fruta.class, list_frutas.get(position).getId());
+        switch (estado_lista){
+            case "Buscando":
+                fruta = Fruta.findById(Fruta.class, nuevaLista.get(position).getId());
+                Toast.makeText(getContext(), "Buscando", Toast.LENGTH_SHORT).show();
+                break;
 //            case "Filtro":
 //                fruta = Fruta.findById(Fruta.class, valores.get(position).getId());
 //                Toast.makeText(getContext(), "Filtro", Toast.LENGTH_SHORT).show();
 //                break;
-//            default:
-//                fruta = Fruta.findById(Fruta.class, list_frutas.get(position).getId());
-//                Toast.makeText(getContext(), "vaciooooooo", Toast.LENGTH_SHORT).show();
-//                break;
-//        }
+            default:
+                fruta = Fruta.findById(Fruta.class, list_frutas.get(position).getId());
+                Toast.makeText(getContext(), "vaciooooooo", Toast.LENGTH_SHORT).show();
+                break;
+        }
 
 
         switch (title) {

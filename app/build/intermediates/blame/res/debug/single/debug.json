@@ -108,12 +108,20 @@
         "source": "C:\\Users\\sc2\\.gradle\\caches\\transforms-1\\files-1.1\\design-widget-28.0.0-alpha1.aar\\8d8c6db0197e7666f6a12b40c3ef7bb6\\res\\layout\\design_layout_snackbar.xml"
     },
     {
+        "merged": "C:\\Users\\sc2\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_scrolling_receta.xml.flat",
+        "source": "C:\\Users\\sc2\\AndroidStudioProjects\\appFrutas\\app\\src\\main\\res\\layout\\activity_scrolling_receta.xml"
+    },
+    {
         "merged": "C:\\Users\\sc2\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\drawable_notification_bg.xml.flat",
         "source": "C:\\Users\\sc2\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0-alpha1.aar\\c3cddcb81a3c6d75b5b6795d6e829fae\\res\\drawable\\notification_bg.xml"
     },
     {
         "merged": "C:\\Users\\sc2\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_action_menu_layout.xml.flat",
         "source": "C:\\Users\\sc2\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha1.aar\\8110fee51984603d0083037dbbd92e09\\res\\layout\\abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\sc2\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\layout_content_scrolling_receta.xml.flat",
+        "source": "C:\\Users\\sc2\\AndroidStudioProjects\\appFrutas\\app\\src\\main\\res\\layout\\content_scrolling_receta.xml"
     },
     {
         "merged": "C:\\Users\\sc2\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\color_mtrl_btn_ripple_color.xml.flat",
@@ -342,6 +350,10 @@
     {
         "merged": "C:\\Users\\sc2\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
         "source": "C:\\Users\\sc2\\AndroidStudioProjects\\appFrutas\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\sc2\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_fruta_receta.xml.flat",
+        "source": "C:\\Users\\sc2\\AndroidStudioProjects\\appFrutas\\app\\src\\main\\res\\layout\\item_fruta_receta.xml"
     },
     {
         "merged": "C:\\Users\\sc2\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\anim_design_bottom_sheet_slide_in.xml.flat",
@@ -682,6 +694,10 @@
     {
         "merged": "C:\\Users\\sc2\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_design_ic_visibility_off.png.flat",
         "source": "C:\\Users\\sc2\\.gradle\\caches\\transforms-1\\files-1.1\\design-textfield-28.0.0-alpha1.aar\\1fafa1f752b9a0e033390b736574d3dd\\res\\drawable-mdpi-v4\\design_ic_visibility_off.png"
+    },
+    {
+        "merged": "C:\\Users\\sc2\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_receta.xml.flat",
+        "source": "C:\\Users\\sc2\\AndroidStudioProjects\\appFrutas\\app\\src\\main\\res\\layout\\item_receta.xml"
     },
     {
         "merged": "C:\\Users\\sc2\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\drawable_scrim.xml.flat",

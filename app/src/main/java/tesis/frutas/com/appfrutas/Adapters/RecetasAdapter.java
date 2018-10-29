@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -18,6 +20,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,6 +32,7 @@ import java.util.List;
 import tesis.frutas.com.appfrutas.R;
 import tesis.frutas.com.appfrutas.ScrollingActivity;
 import tesis.frutas.com.appfrutas.clases.Fruta;
+import tesis.frutas.com.appfrutas.clases.Receta;
 import tesis.frutas.com.appfrutas.utils.Utils;
 
 public class RecetasAdapter extends RecyclerView.Adapter<RecetasAdapter.ViewHolder>{
@@ -38,11 +42,17 @@ public class RecetasAdapter extends RecyclerView.Adapter<RecetasAdapter.ViewHold
     private List<Fruta> frutasFiltered;
     private int position;
     boolean activo;
+    private ArrayList<Integer> counter = new ArrayList<Integer>();
 
     public RecetasAdapter(Context context, List<Fruta> frutas) {
         this.context = context;
         this.frutas = frutas;
         this.frutasFiltered = frutas;
+
+        for (int i = 0; i < frutas.size(); i++) {
+            counter.add(0);
+        }
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -50,6 +60,9 @@ public class RecetasAdapter extends RecyclerView.Adapter<RecetasAdapter.ViewHold
 
         public TextView nombre_fruta, temporada;
         public ImageView img_fruta, img_calendar;
+
+        RecyclerView cardRecyclerView;
+        CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,6 +74,8 @@ public class RecetasAdapter extends RecyclerView.Adapter<RecetasAdapter.ViewHold
             img_fruta = itemView.findViewById(R.id.imagen_fruta);
             img_calendar = itemView.findViewById(R.id.calendar);
 
+            cardRecyclerView = itemView.findViewById(R.id.innerRecyclerView);
+            cardView = itemView.findViewById(R.id.card_view_vehiculo);
         }
 
         @Override
@@ -76,14 +91,14 @@ public class RecetasAdapter extends RecyclerView.Adapter<RecetasAdapter.ViewHold
     @Override
     public RecetasAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_fruta, parent, false);
+                .inflate(R.layout.item_fruta_receta, parent, false);
 
         return new ViewHolder(v);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull final RecetasAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecetasAdapter.ViewHolder holder, final int position) {
         holder.setIsRecyclable(false);
 
         final Fruta item = frutas.get(position);
@@ -134,6 +149,33 @@ public class RecetasAdapter extends RecyclerView.Adapter<RecetasAdapter.ViewHold
         }
 
         holder.img_fruta.setImageBitmap(bitmap);
+
+
+        holder.cardRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (counter.get(position) % 2 == 0) {
+                    holder.cardRecyclerView.setVisibility(View.VISIBLE);
+                } else {
+                    holder.cardRecyclerView.setVisibility(View.GONE);
+                }
+//
+                counter.set(position, counter.get(position) + 1);
+
+                String[] argu = {
+                        String.valueOf(item.getId())
+                };
+
+                List<Receta> receta_items = Receta.find(Receta.class, "IDFRUTA = ? ", argu);
+
+                RecetasChildAdapter cuponClienteAdapter = new RecetasChildAdapter(receta_items);
+                holder.cardRecyclerView.setAdapter(cuponClienteAdapter);
+            }
+        });
+
 
 
     }

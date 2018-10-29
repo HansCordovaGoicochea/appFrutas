@@ -59,6 +59,8 @@
     <string name="nueva_fruta">Nueva Fruta</string>
     <string name="fruta">Fruta</string>
     <string name="seleccione_una_fruta">Seleccione una Fruta</string>
+    <string name="ingredientes">Ingredientes</string>
+    <string name="procedimiento">Procedimiento</string>
 
 
 </resources>

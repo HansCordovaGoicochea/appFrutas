@@ -8,6 +8,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -179,7 +180,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 break;
         }
         //seteamos el mes actual y pintamos los que estan marcados para la temporada
-        monthText.setTypeface(null, 1);
+        monthText.setTypeface(null, Typeface.BOLD);
         monthText.setTextSize(2, 11.0f);
 
         ((TextView) findViewById(R.id.kCalValor)).setText(fruta.getKcal());

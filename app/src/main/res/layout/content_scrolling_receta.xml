@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ScrollingActivity"
+    tools:showIn="@layout/activity_scrolling_receta">
+
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+           <LinearLayout android:orientation="vertical" android:background="@color/md_grey_400" android:layout_width="fill_parent" android:layout_height="fill_parent">
+               <LinearLayout android:layout_marginTop="10dp" style="@style/card_style">
+                   <TextView android:textAppearance="?android:textAppearanceMedium" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/temporada" style="@style/ElementTextTitles" />
+                   <TableLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                       <TableRow android:id="@+id/tableRowAvaliability" android:layout_height="wrap_content" style="@style/MonthView">
+                           <RelativeLayout android:layout_width="0dp" android:layout_height="fill_parent" android:layout_weight="1">
+                               <ImageView android:id="@+id/ImageViewEnero" style="@style/MonthView" />
+                               <TextView android:id="@+id/textView1" android:text="@string/Enero_short" style="@style/MonthTextView" />
+                           </RelativeLayout>
+                           <RelativeLayout android:layout_width="0dp" android:layout_height="fill_parent" android:layout_weight="1.0">
+                               <ImageView android:id="@+id/ImageViewFebrero" style="@style/MonthView" />
+                               <TextView android:id="@+id/textView2" android:text="@string/Febrero_short" style="@style/MonthTextView" />
+                           </RelativeLayout>
+                           <RelativeLayout android:layout_width="0dp" android:layout_height="fill_parent" android:layout_weight="1.0">
+                               <ImageView android:id="@+id/ImageViewMarzo" style="@style/MonthView" />
+                               <TextView android:id="@+id/textView3" android:text="@string/Marzo_short" style="@style/MonthTextView" />
+                           </RelativeLayout>
+                           <RelativeLayout android:layout_width="0dp" android:layout_height="fill_parent" android:layout_weight="1.0">
+                               <ImageView android:id="@+id/ImageViewAbril" style="@style/MonthView" />
+                               <TextView android:id="@+id/textView4" android:text="@string/Abril_short" style="@style/MonthTextView" />
+                           </RelativeLayout>
+                           <RelativeLayout android:layout_width="0dp" android:layout_height="fill_parent" android:layout_weight="1.0">
+                               <ImageView android:id="@+id/ImageViewMayo" style="@style/MonthView" />
+                               <TextView android:id="@+id/textView5" android:text="@string/Mayo_short" style="@style/MonthTextView" />
+                           </RelativeLayout>
+                           <RelativeLayout android:layout_width="0dp" android:layout_height="fill_parent" android:layout_weight="1.0">
+                               <ImageView android:id="@+id/ImageViewJunio" style="@style/MonthView" />
+                               <TextView android:id="@+id/textView6" android:text="@string/Junio_short" style="@style/MonthTextView" />
+                           </RelativeLayout>
+                           <RelativeLayout android:layout_width="0dp" android:layout_height="fill_parent" android:layout_weight="1.0">
+                               <ImageView android:id="@+id/ImageViewJulio" style="@style/MonthView" />
+                               <TextView android:id="@+id/textView7" android:text="@string/Julio_short" style="@style/MonthTextView" />
+                           </RelativeLayout>
+                           <RelativeLayout android:layout_width="0dp" android:layout_height="fill_parent" android:layout_weight="1.0">
+                               <ImageView android:id="@+id/ImageViewAgosto" style="@style/MonthView" />
+                               <TextView android:id="@+id/textView8" android:text="@string/Agosto_short" style="@style/MonthTextView" />
+                           </RelativeLayout>
+                           <RelativeLayout android:layout_width="0dp" android:layout_height="fill_parent" android:layout_weight="1.0">
+                               <ImageView android:id="@+id/ImageViewSeptiembre" style="@style/MonthView" />
+                               <TextView android:id="@+id/textView9" android:text="@string/Septiembre_short" style="@style/MonthTextView" />
+                           </RelativeLayout>
+                           <RelativeLayout android:layout_width="0dp" android:layout_height="fill_parent" android:layout_weight="1">
+                               <ImageView android:id="@+id/ImageViewOctubre" style="@style/MonthView" />
+                               <TextView android:id="@+id/textView10" android:text="@string/Octubre_short" style="@style/MonthTextView" />
+                           </RelativeLayout>
+                           <RelativeLayout android:layout_width="0dp" android:layout_height="fill_parent" android:layout_weight="1">
+                               <ImageView android:id="@+id/ImageViewNoviembre" style="@style/MonthView" />
+                               <TextView android:id="@+id/textView11" android:text="@string/Noviembre_short" style="@style/MonthTextView" />
+                           </RelativeLayout>
+                           <RelativeLayout android:layout_width="0dp" android:layout_height="fill_parent" android:layout_weight="1">
+                               <ImageView android:id="@+id/imageViewDiciembre" style="@style/MonthView" />
+                               <TextView android:id="@+id/textView12" android:text="@string/Diciembre_short" style="@style/MonthTextView" />
+                           </RelativeLayout>
+                       </TableRow>
+                   </TableLayout>
+               </LinearLayout>
+               <LinearLayout style="@style/card_style">
+                   <TextView android:textAppearance="?android:textAppearanceMedium" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/ingredientes" style="@style/ElementTextTitles" />
+                   <TextView android:textAppearance="?android:textAppearanceSmall" android:textColor="@color/md_black_1000" android:ellipsize="end" android:id="@+id/elementIngredientes" android:scrollbars="none" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="@dimen/list_padding" android:text="Aqui van los ingredientes" android:lineSpacingExtra="@dimen/space_lines" />
+               </LinearLayout>
+               <LinearLayout style="@style/card_style">
+                   <TextView android:textAppearance="?android:textAppearanceMedium" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/procedimiento" style="@style/ElementTextTitles" />
+                   <TextView android:textAppearance="?android:textAppearanceSmall" android:textColor="@color/md_black_1000" android:ellipsize="end" android:id="@+id/elementProcedimiento" android:scrollbars="none" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="@dimen/list_padding" android:text="Aquiva el procedimiento" android:lineSpacingExtra="@dimen/space_lines" />
+               </LinearLayout>
+           </LinearLayout>
+   </ScrollView>
+
+</android.support.v4.widget.NestedScrollView>
