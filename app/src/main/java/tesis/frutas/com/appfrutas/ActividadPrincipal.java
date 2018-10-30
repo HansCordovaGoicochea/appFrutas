@@ -36,6 +36,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import tesis.frutas.com.appfrutas.Fragmentos.FragmentCalendar;
 import tesis.frutas.com.appfrutas.Fragmentos.FragmentFrutas;
 import tesis.frutas.com.appfrutas.Fragmentos.FragmentRecetas;
+import tesis.frutas.com.appfrutas.Fragmentos.FragmentSalud;
 import tesis.frutas.com.appfrutas.clases.Fruta;
 import tesis.frutas.com.appfrutas.utils.Utils;
 
@@ -274,6 +275,8 @@ public class ActividadPrincipal extends AppCompatActivity{
             fragment = new FragmentCalendar();
         }else if(id == R.id.recetas_nav){
             fragment = new FragmentRecetas();
+        }else if(id == R.id.salud_nav){
+            fragment = new FragmentSalud();
         }
 
         if (fragment != null) {

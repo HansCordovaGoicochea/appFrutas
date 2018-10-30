@@ -7,8 +7,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import tesis.frutas.com.appfrutas.R;
 import tesis.frutas.com.appfrutas.ScrollingActivity;
 import tesis.frutas.com.appfrutas.ScrollingRecetaActivity;
@@ -35,6 +40,7 @@ public class RecetasChildAdapter extends RecyclerView.Adapter<RecetasChildAdapte
     public class ViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener{
         TextView numero;
         TextView nombre;
+        ImageView delete_row;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -42,6 +48,7 @@ public class RecetasChildAdapter extends RecyclerView.Adapter<RecetasChildAdapte
             numero = itemView.findViewById(R.id.numero);
             nombre = itemView.findViewById(R.id.nombre_receta);
 
+            delete_row = itemView.findViewById(R.id.borrarReceta);
         }
 
         @Override
@@ -75,6 +82,29 @@ public class RecetasChildAdapter extends RecyclerView.Adapter<RecetasChildAdapte
         holder.numero.setText(numero);
         holder.nombre.setText(nombre);
 
+        holder.delete_row.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(holder.itemView.getContext(), ""+position, Toast.LENGTH_SHORT).show();
+
+                Receta receta = Receta.findById(Receta.class, nameList.get(position).getId());
+                receta.delete();
+                removeAt(position);
+
+                new SweetAlertDialog(holder.itemView.getContext(), SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText("Exito!")
+                        .setContentText("Receta Eliminada")
+                        .show();
+
+            }
+        });
+
+    }
+
+    public void removeAt(int position) {
+        nameList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, nameList.size());
     }
 
     @Override

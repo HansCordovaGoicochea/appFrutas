@@ -34,7 +34,7 @@
             android:value="frutasapp.db" />
         <meta-data
             android:name="VERSION"
-            android:value="2" />
+            android:value="3" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -44,6 +44,7 @@
 
         <activity android:name=".ActividadCalendarFruta"/>
         <activity android:name=".ScrollingRecetaActivity"/>
+        <activity android:name=".ScrollingSaludActivity"/>
     </application>
 
 </manifest>
