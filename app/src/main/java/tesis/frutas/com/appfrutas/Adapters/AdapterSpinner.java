@@ -40,9 +40,9 @@ public class AdapterSpinner extends BaseAdapter{
         subtitle.setTextSize(1, (this.context.getResources().getDimension(R.dimen.abc_text_size_subhead_material) / this.context.getResources().getDisplayMetrics().density) - 4.0f);
         subtitle.setTextColor(this.context.getResources().getColor(R.color.md_white_1000));
 
-        if (position == 0) {
-            return initialSelection(false);
-        }
+//        if (position == 0) {
+//            return initialSelection(false);
+//        }
 
         return actionBarView;
     }
@@ -51,9 +51,9 @@ public class AdapterSpinner extends BaseAdapter{
         View actionBarDropDownView = this.inflater.inflate(R.layout.ab_dropdown_view, null);
         ((TextView) actionBarDropDownView.findViewById(R.id.ab_basemaps_dropdown_title)).setText(this.data[position]);
 
-        if (position == 0) {
-            initialSelection(true);
-        }
+//        if (position == 0) {
+//            initialSelection(true);
+//        }
 //        TextView tv = (TextView) actionBarDropDownView;
 //        if(position == 0){
 //            // Set the hint text color gray

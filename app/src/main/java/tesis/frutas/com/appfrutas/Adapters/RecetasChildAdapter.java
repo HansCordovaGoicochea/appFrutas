@@ -1,6 +1,8 @@
 package tesis.frutas.com.appfrutas.Adapters;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -49,6 +51,8 @@ public class RecetasChildAdapter extends RecyclerView.Adapter<RecetasChildAdapte
             nombre = itemView.findViewById(R.id.nombre_receta);
 
             delete_row = itemView.findViewById(R.id.borrarReceta);
+            verBoton();
+
         }
 
         @Override
@@ -58,6 +62,18 @@ public class RecetasChildAdapter extends RecyclerView.Adapter<RecetasChildAdapte
             intent.putExtra("idreceta", nameList.get(getAdapterPosition()).getId().toString());
             itemView.getContext().startActivity(intent);
         }
+
+        private void verBoton() {
+            SharedPreferences preferences = itemView.getContext().getSharedPreferences("admin_pref", Context.MODE_PRIVATE);
+            boolean activo = preferences.getBoolean("activo", false);
+
+            if (!activo){
+                delete_row.setVisibility(View.INVISIBLE);
+            }else{
+                delete_row.setVisibility(View.VISIBLE);
+            }
+        }
+
     }
 
     @NonNull

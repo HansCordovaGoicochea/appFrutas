@@ -88,7 +88,7 @@ public class FrutasAdapter extends RecyclerView.Adapter<FrutasAdapter.ViewHolder
             activo = preferences.getBoolean("activo",false);
             boolean activo_otro = preferences.getBoolean("activo_otro",false);
 //            Toast.makeText(itemView.getContext(), activo+"",Toast.LENGTH_SHORT).show();
-            if (activo && !activo_otro){
+            if (activo){
                 menu.setHeaderTitle("Seleccione una opción");
                 //groupId, itemId, order, title
                 menu.add(0, v.getId(), 0, "Editar");

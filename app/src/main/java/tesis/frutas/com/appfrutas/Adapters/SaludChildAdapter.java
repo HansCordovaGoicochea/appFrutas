@@ -1,6 +1,8 @@
 package tesis.frutas.com.appfrutas.Adapters;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -45,6 +47,7 @@ public class SaludChildAdapter extends RecyclerView.Adapter<SaludChildAdapter.Vi
             nombre = itemView.findViewById(R.id.nombre_salud);
 
             delete_row = itemView.findViewById(R.id.borrarSalud);
+            verBoton();
         }
 
         @Override
@@ -53,6 +56,16 @@ public class SaludChildAdapter extends RecyclerView.Adapter<SaludChildAdapter.Vi
 //            Toast.makeText(itemView.getContext(), ""+getAdapterPosition(), Toast.LENGTH_SHORT).show();
             intent.putExtra("idsalud", nameList.get(getAdapterPosition()).getId().toString());
             itemView.getContext().startActivity(intent);
+        }
+        private void verBoton() {
+            SharedPreferences preferences = itemView.getContext().getSharedPreferences("admin_pref", Context.MODE_PRIVATE);
+            boolean activo = preferences.getBoolean("activo", false);
+
+            if (!activo){
+                delete_row.setVisibility(View.INVISIBLE);
+            }else{
+                delete_row.setVisibility(View.VISIBLE);
+            }
         }
     }
 

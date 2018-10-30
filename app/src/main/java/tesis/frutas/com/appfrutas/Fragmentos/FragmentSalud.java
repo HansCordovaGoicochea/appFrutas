@@ -315,15 +315,15 @@ public class FragmentSalud extends Fragment implements AdapterView.OnItemSelecte
         SharedPreferences preferences = getActivity().getSharedPreferences("admin_pref", Context.MODE_PRIVATE);
         activo = preferences.getBoolean("activo",false);
 //        Toast.makeText(getContext(), activo+"",Toast.LENGTH_SHORT).show();
-//        if (!activo){
-//            fab.setVisibility(View.INVISIBLE);
-//            hideItemCerrar();
-//            showItemIngresar();
-//        }else{
-//            hideItemIngresar();
-//            showItemCerrar();
-//            fab.setVisibility(View.VISIBLE);
-//        }
+        if (!activo){
+            fab.setVisibility(View.INVISIBLE);
+            hideItemCerrar();
+            showItemIngresar();
+        }else{
+            hideItemIngresar();
+            showItemCerrar();
+            fab.setVisibility(View.VISIBLE);
+        }
 //        Collections.sort(list_frutas);
         Collections.sort(list_frutas, new CustomComparator());
         rcAdapter.notifyDataSetChanged();

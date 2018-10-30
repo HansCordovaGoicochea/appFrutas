@@ -176,8 +176,10 @@ public class ActividadPrincipal extends AppCompatActivity{
         final SharedPreferences preferences = getSharedPreferences("admin_pref", MODE_PRIVATE);
         if (id == R.id.frutas_nav) {
             fragment = new FragmentFrutas();
-            preferences.edit()
-                    .putBoolean("activo_otro", false).apply();
+//            preferences.edit()
+//                    .putBoolean("activo", false).apply();
+//            preferences.edit()
+//                    .putBoolean("activo_otro", false).apply();
         }
         else if(id == R.id.ingresar){
 

@@ -125,7 +125,7 @@ public class FragmentFrutas extends Fragment {
             .orderBy("NOMBRE ASC")
             .list();
 
-        Toast.makeText(getContext(), "dfdfd"+list_frutas.size(),Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "dfdfd"+list_frutas.size(),Toast.LENGTH_SHORT).show();
         //SET ADAPTER TO RV
         if(list_frutas.size()>0)
         {
@@ -189,8 +189,9 @@ public class FragmentFrutas extends Fragment {
             rcAdapter.notifyDataSetChanged();
 
         }else {
-            Toast.makeText(getContext(), "No Records found.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "No hay frutas.", Toast.LENGTH_SHORT).show();
         }
+
     }
 
 
@@ -446,22 +447,27 @@ public class FragmentFrutas extends Fragment {
     public void onResume() {
         super.onResume();
 
-
-//        SharedPreferences preferences = getActivity().getSharedPreferences("admin_pref", Context.MODE_PRIVATE);
-//        activo = preferences.getBoolean("activo",false);
-////        Toast.makeText(getContext(), "resumeeeeeeeee",Toast.LENGTH_SHORT).show();
-//        if (!activo){
-//            fab.setVisibility(View.INVISIBLE);
-//            hideItemCerrar();
-//            showItemIngresar();
-//        }else{
-//            hideItemIngresar();
-//            showItemCerrar();
-//            fab.setVisibility(View.VISIBLE);
-//        }
+        verBoton();
+//        fetchRecords();
 //        Collections.sort(list_frutas);
 //        Collections.sort(list_frutas, new CustomComparator());
 //        rcAdapter.notifyDataSetChanged();
+    }
+
+    private void verBoton() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("admin_pref", Context.MODE_PRIVATE);
+        activo = preferences.getBoolean("activo",false);
+
+        if (!activo){
+            fab.setVisibility(View.INVISIBLE);
+            hideItemCerrar();
+            showItemIngresar();
+//            Toast.makeText(getContext(), "resumeeeeeeeee " +activo,Toast.LENGTH_SHORT).show();
+        }else{
+            hideItemIngresar();
+            showItemCerrar();
+            fab.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -543,7 +549,7 @@ public class FragmentFrutas extends Fragment {
         switch (estado_lista){
             case "Buscando":
                 fruta = Fruta.findById(Fruta.class, nuevaLista.get(position).getId());
-                Toast.makeText(getContext(), "Buscando", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Buscando", Toast.LENGTH_SHORT).show();
                 break;
 //            case "Filtro":
 //                fruta = Fruta.findById(Fruta.class, valores.get(position).getId());
@@ -551,7 +557,7 @@ public class FragmentFrutas extends Fragment {
 //                break;
             default:
                 fruta = Fruta.findById(Fruta.class, list_frutas.get(position).getId());
-                Toast.makeText(getContext(), "vaciooooooo", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "vaciooooooo", Toast.LENGTH_SHORT).show();
                 break;
         }
 
@@ -799,13 +805,7 @@ public class FragmentFrutas extends Fragment {
 
         Spinner s = (Spinner) getActivity().findViewById(R.id.spinner_nav);
         s.setAdapter(new AdapterSpinner(getContext(), R.layout.support_simple_spinner_dropdown_item, mLocations, (String) getActivity().getTitle()));
-//        @Override
-//        public void onPrepareOptionsMenu(Menu menu) {
-//            MenuItem item=menu.findItem(R.id.action_buscar);
-//            item.setVisible(false);
-//            Spinner spinner = (Spinner) getActivity().findViewById(R.id.spinner_nav);
-//            spinner.setVisibility(View.GONE);
-//        }
+
         s.setVisibility(View.VISIBLE);
 
         s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -819,12 +819,13 @@ public class FragmentFrutas extends Fragment {
                 int mes_actual = Utils.getMonth();
 
                 if (position == 0) {
-                    fab.setVisibility(View.VISIBLE);
-                    Log.e(TAG, ""+parent.getRootView());
+//                    fab.setVisibility(View.VISIBLE);
+//                    Log.e(TAG, ""+parent.getRootView());
 //                    valores = Select.from(Fruta.class)
 //                            .orderBy("NOMBRE ASC")
 //                            .list();
                     fetchRecords();
+                    verBoton();
 //                    retrieve();
                 } else if (position == 1) {
                     fab.setVisibility(View.GONE);
