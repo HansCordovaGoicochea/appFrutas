@@ -34,7 +34,9 @@ import android.widget.Toast;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import tesis.frutas.com.appfrutas.Fragmentos.FragmentCalendar;
+import tesis.frutas.com.appfrutas.Fragmentos.FragmentDirectorio;
 import tesis.frutas.com.appfrutas.Fragmentos.FragmentFrutas;
+import tesis.frutas.com.appfrutas.Fragmentos.FragmentMapa;
 import tesis.frutas.com.appfrutas.Fragmentos.FragmentRecetas;
 import tesis.frutas.com.appfrutas.Fragmentos.FragmentSalud;
 import tesis.frutas.com.appfrutas.clases.Fruta;
@@ -279,6 +281,10 @@ public class ActividadPrincipal extends AppCompatActivity{
             fragment = new FragmentRecetas();
         }else if(id == R.id.salud_nav){
             fragment = new FragmentSalud();
+        }else if(id == R.id.directorio_nav){
+            fragment = new FragmentDirectorio();
+        }else if(id == R.id.mapa_nav){
+            fragment = new FragmentMapa();
         }
 
         if (fragment != null) {

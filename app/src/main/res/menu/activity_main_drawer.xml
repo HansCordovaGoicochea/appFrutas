@@ -20,6 +20,14 @@
             android:id="@+id/salud_nav"
             android:icon="@drawable/salud"
             android:title="Salud" />
+        <item
+            android:id="@+id/directorio_nav"
+            android:icon="@drawable/agenda"
+            android:title="Directorio" />
+        <item
+            android:id="@+id/mapa_nav"
+            android:icon="@drawable/mapa_icon"
+            android:title="Mapa" />
     </group>
 
     <item android:title="Administración">
