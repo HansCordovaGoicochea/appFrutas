@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -151,22 +152,29 @@ public class SaludAdapter extends RecyclerView.Adapter<SaludAdapter.ViewHolder>{
             @Override
             public void onClick(View view) {
 
-                if (counter.get(position) % 2 == 0) {
-                    holder.cardRecyclerView.setVisibility(View.VISIBLE);
-                } else {
-                    holder.cardRecyclerView.setVisibility(View.GONE);
-                }
-//
-                counter.set(position, counter.get(position) + 1);
-
                 String[] argu = {
                         String.valueOf(item.getId())
                 };
 
                 List<Salud> receta_items = Salud.find(Salud.class, "IDFRUTA = ? ", argu);
 
-                SaludChildAdapter cuponClienteAdapter = new SaludChildAdapter(receta_items);
-                holder.cardRecyclerView.setAdapter(cuponClienteAdapter);
+               if(receta_items.size() > 0){
+                   if (counter.get(position) % 2 == 0) {
+                       holder.cardRecyclerView.setVisibility(View.VISIBLE);
+                   } else {
+                       holder.cardRecyclerView.setVisibility(View.GONE);
+                   }
+//
+                   counter.set(position, counter.get(position) + 1);
+                   SaludChildAdapter cuponClienteAdapter = new SaludChildAdapter(receta_items);
+                   holder.cardRecyclerView.setAdapter(cuponClienteAdapter);
+
+               }else{
+                   Toast.makeText(holder.itemView.getContext(), "No existen tips de salud", Toast.LENGTH_SHORT).show();
+               }
+
+
+
             }
         });
 

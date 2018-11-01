@@ -87,8 +87,10 @@ public class RecetasChildAdapter extends RecyclerView.Adapter<RecetasChildAdapte
 
             if (!activo){
                 delete_row.setVisibility(View.INVISIBLE);
+                editar_row.setVisibility(View.INVISIBLE);
             }else{
                 delete_row.setVisibility(View.VISIBLE);
+                editar_row.setVisibility(View.VISIBLE);
             }
         }
 
@@ -99,8 +101,6 @@ public class RecetasChildAdapter extends RecyclerView.Adapter<RecetasChildAdapte
     public RecetasChildAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_receta, parent, false);
-
-
 
         return new ViewHolder(v);
     }

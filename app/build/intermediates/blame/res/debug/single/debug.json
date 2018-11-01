@@ -64,12 +64,12 @@
         "source": "C:\\Users\\Hans\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0-alpha1.aar\\a21814ae3f1eb5b94263881902aedc52\\res\\drawable-xhdpi-v4\\notification_bg_low_normal.9.png"
     },
     {
-        "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\color-v23_abc_btn_colored_borderless_text_material.xml.flat",
-        "source": "C:\\Users\\Hans\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha1.aar\\3df08762b926714c7b307538502934de\\res\\color-v23\\abc_btn_colored_borderless_text_material.xml"
-    },
-    {
         "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\anim_abc_grow_fade_in_from_bottom.xml.flat",
         "source": "C:\\Users\\Hans\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha1.aar\\3df08762b926714c7b307538502934de\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\color-v23_abc_btn_colored_borderless_text_material.xml.flat",
+        "source": "C:\\Users\\Hans\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha1.aar\\3df08762b926714c7b307538502934de\\res\\color-v23\\abc_btn_colored_borderless_text_material.xml"
     },
     {
         "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21_abc_action_bar_item_background_material.xml.flat",
@@ -84,12 +84,12 @@
         "source": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\src\\main\\res\\drawable\\cuadro_verde.png"
     },
     {
-        "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_launcher_background.png.flat",
-        "source": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_launcher_background.png"
-    },
-    {
         "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_scrubber_control_to_pressed_mtrl_005.png.flat",
         "source": "C:\\Users\\Hans\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha1.aar\\3df08762b926714c7b307538502934de\\res\\drawable-xhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_005.png"
+    },
+    {
+        "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_launcher_background.png.flat",
+        "source": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_launcher_background.png"
     },
     {
         "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v21_ic_launcher_foreground.png.flat",
@@ -120,12 +120,12 @@
         "source": "C:\\Users\\Hans\\.gradle\\caches\\transforms-1\\files-1.1\\design-floatingactionbutton-28.0.0-alpha1.aar\\95259bd5598ba6e6e62dc76a722910e7\\res\\animator\\design_fab_hide_motion_spec.xml"
     },
     {
-        "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\drawable_design_password_eye.xml.flat",
-        "source": "C:\\Users\\Hans\\.gradle\\caches\\transforms-1\\files-1.1\\design-textfield-28.0.0-alpha1.aar\\0dcfa7a9e0e25b803a04191155530b94\\res\\drawable\\design_password_eye.xml"
-    },
-    {
         "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_popup_background_mtrl_mult.9.png.flat",
         "source": "C:\\Users\\Hans\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha1.aar\\3df08762b926714c7b307538502934de\\res\\drawable-mdpi-v4\\abc_popup_background_mtrl_mult.9.png"
+    },
+    {
+        "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\drawable_design_password_eye.xml.flat",
+        "source": "C:\\Users\\Hans\\.gradle\\caches\\transforms-1\\files-1.1\\design-textfield-28.0.0-alpha1.aar\\0dcfa7a9e0e25b803a04191155530b94\\res\\drawable\\design_password_eye.xml"
     },
     {
         "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-hdpi-v17_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
@@ -268,12 +268,12 @@
         "source": "C:\\Users\\Hans\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha1.aar\\3df08762b926714c7b307538502934de\\res\\drawable-xxhdpi-v4\\abc_popup_background_mtrl_mult.9.png"
     },
     {
-        "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\color_mtrl_chip_ripple_color.xml.flat",
-        "source": "C:\\Users\\Hans\\.gradle\\caches\\transforms-1\\files-1.1\\design-chip-28.0.0-alpha1.aar\\5ace097cbe5638e73a913e4246d274f1\\res\\color\\mtrl_chip_ripple_color.xml"
-    },
-    {
         "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_btn_check_to_on_mtrl_000.png.flat",
         "source": "C:\\Users\\Hans\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha1.aar\\3df08762b926714c7b307538502934de\\res\\drawable-hdpi-v4\\abc_btn_check_to_on_mtrl_000.png"
+    },
+    {
+        "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\color_mtrl_chip_ripple_color.xml.flat",
+        "source": "C:\\Users\\Hans\\.gradle\\caches\\transforms-1\\files-1.1\\design-chip-28.0.0-alpha1.aar\\5ace097cbe5638e73a913e4246d274f1\\res\\color\\mtrl_chip_ripple_color.xml"
     },
     {
         "merged": "C:\\Users\\Hans\\AndroidStudioProjects\\appFrutas\\app\\build\\intermediates\\res\\merged\\debug\\color-v23_abc_color_highlight_material.xml.flat",
