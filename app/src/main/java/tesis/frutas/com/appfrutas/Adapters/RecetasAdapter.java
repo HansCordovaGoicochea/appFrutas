@@ -156,23 +156,27 @@ public class RecetasAdapter extends RecyclerView.Adapter<RecetasAdapter.ViewHold
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (counter.get(position) % 2 == 0) {
-                    holder.cardRecyclerView.setVisibility(View.VISIBLE);
-                } else {
-                    holder.cardRecyclerView.setVisibility(View.GONE);
-                }
-//
-                counter.set(position, counter.get(position) + 1);
-
                 String[] argu = {
                         String.valueOf(item.getId())
                 };
 
                 List<Receta> receta_items = Receta.find(Receta.class, "IDFRUTA = ? ", argu);
 
-                RecetasChildAdapter cuponClienteAdapter = new RecetasChildAdapter(receta_items);
-                holder.cardRecyclerView.setAdapter(cuponClienteAdapter);
+                if (receta_items.size() > 0){
+                    if (counter.get(position) % 2 == 0) {
+                        holder.cardRecyclerView.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.cardRecyclerView.setVisibility(View.GONE);
+                    }
+//
+                    counter.set(position, counter.get(position) + 1);
+
+                    RecetasChildAdapter cuponClienteAdapter = new RecetasChildAdapter(receta_items);
+                    holder.cardRecyclerView.setAdapter(cuponClienteAdapter);
+                }else{
+                    Toast.makeText(holder.itemView.getContext(), "No hay recetas para esta fruta", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 

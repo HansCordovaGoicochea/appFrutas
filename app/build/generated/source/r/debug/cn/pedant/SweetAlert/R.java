@@ -102,21 +102,21 @@ public final class R {
         public static final int content_text = 0x7f090060;
         public static final int custom_image = 0x7f090065;
         public static final int custom_view_container = 0x7f090066;
-        public static final int error_frame = 0x7f09007d;
-        public static final int error_x = 0x7f09007e;
-        public static final int loading = 0x7f0900bb;
-        public static final int mask_left = 0x7f0900be;
-        public static final int mask_right = 0x7f0900bf;
-        public static final int neutral_button = 0x7f0900cc;
-        public static final int progressWheel = 0x7f0900e2;
-        public static final int progress_dialog = 0x7f0900e4;
-        public static final int success_frame = 0x7f09011e;
-        public static final int success_tick = 0x7f09011f;
-        public static final int title_text = 0x7f09013c;
-        public static final int warning_frame = 0x7f090158;
-        public static final int x = 0x7f09015c;
-        public static final int y = 0x7f09015d;
-        public static final int z = 0x7f09015e;
+        public static final int error_frame = 0x7f09007e;
+        public static final int error_x = 0x7f09007f;
+        public static final int loading = 0x7f0900bc;
+        public static final int mask_left = 0x7f0900bf;
+        public static final int mask_right = 0x7f0900c0;
+        public static final int neutral_button = 0x7f0900cd;
+        public static final int progressWheel = 0x7f0900e3;
+        public static final int progress_dialog = 0x7f0900e5;
+        public static final int success_frame = 0x7f09011f;
+        public static final int success_tick = 0x7f090120;
+        public static final int title_text = 0x7f09013d;
+        public static final int warning_frame = 0x7f090159;
+        public static final int x = 0x7f09015d;
+        public static final int y = 0x7f09015e;
+        public static final int z = 0x7f09015f;
     }
     public static final class layout {
         public static final int alert_dialog = 0x7f0c0023;
